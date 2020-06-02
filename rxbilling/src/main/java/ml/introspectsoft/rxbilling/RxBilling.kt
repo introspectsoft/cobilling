@@ -87,8 +87,8 @@ class RxBilling(
                 val skuDetailsParams =
                         SkuDetailsParams.newBuilder().setSkusList(skuList).setType(skuType).build()
 
-                client.querySkuDetailsAsync(skuDetailsParams) { responseCode, skuDetailsList: List<SkuDetails>? ->
-                    if ((responseCode ?: -1) == BillingResponse.OK) {
+                client.querySkuDetailsAsync(skuDetailsParams) { result, skuDetailsList: List<SkuDetails>? ->
+                    if ((result?.responseCode ?: -1) == BillingResponse.OK) {
                         if (skuDetailsList != null) {
                             for (skuDetail in skuDetailsList) {
                                 emitter.onNext(converter.invoke(skuDetail))
@@ -97,7 +97,7 @@ class RxBilling(
 
                         emitter.onComplete()
                     } else {
-                        emitter.onError(RuntimeException("Querying failed with responseCode: $responseCode"))
+                        emitter.onError(RuntimeException("Querying failed with responseCode: ${result.responseCode}"))
                     }
                 }
             }
