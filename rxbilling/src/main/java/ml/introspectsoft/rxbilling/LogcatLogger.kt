@@ -20,7 +20,10 @@ package ml.introspectsoft.rxbilling
 import android.annotation.SuppressLint
 import android.util.Log
 
-internal class LogcatLogger : Logger {
+/**
+ * Wrapper for Logcat logging.
+ */
+class LogcatLogger : Logger {
     @SuppressLint("LogNotTimber")
     override fun d(log: String) {
         Log.d(TAG, log)

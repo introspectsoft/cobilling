@@ -17,6 +17,9 @@
 
 package ml.introspectsoft.rxbilling
 
+/**
+ * Wrapper to the user's preferred Log function
+ */
 interface Logger {
     fun d(log: String)
     fun w(log: String)

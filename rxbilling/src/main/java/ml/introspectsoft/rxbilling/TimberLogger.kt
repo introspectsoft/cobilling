@@ -18,7 +18,12 @@ package ml.introspectsoft.rxbilling
 
 import timber.log.Timber
 
-internal class TimberLogger : Logger {
+/**
+ * Timber log wrapper.
+ *
+ * Note: This currently doesn't work properly because Timber is then being called by the wrapper.
+ */
+class TimberLogger : Logger {
     override fun d(log: String) {
         Timber.d(log)
     }

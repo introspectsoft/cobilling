@@ -36,7 +36,7 @@ import ml.introspectsoft.rxbilling.SkuDetails.toInventory
  */
 class RxBilling(
         private val activity: Activity,
-        private val logger: Logger = TimberLogger(),
+        private val logger: Logger = LogcatLogger(),
         private val scheduler: Scheduler = Schedulers.io()
 ) {
     private var billingClient: BillingClient? = null

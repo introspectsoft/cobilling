@@ -4,58 +4,42 @@ RxJava wrapper for the Google Play Billing API. Uses RxJava3 - 3.0.4 and Google 
 Based on the [RxBilling library by Vanniktech - Niklas Baudy](https://github.com/vanniktech/RxBilling).
 Updated for RxJava3 and Google Play Billing API v2. Also rewritten completely in Kotlin.
 
-The deprecated AIDL interface from the original library has been removed.
+The deprecated AIDL interface from the original library has been removed and all functionality has
+been combined into one package.
 
-***NOTE:*** Documentation below this point is mostly unchanged from the original and therefore not
-correct.
-
-***ALSO NOTE:*** This library is still in progress and is not yet usable.
+***NOTE:*** This library is still in progress and is not yet ready for production use.
 
 # Usage
 
-The core functionality is provided via an interface:
+Library documentation is available on [https://introspectdev.github.io/RxBilling2/].
 
-```java
-public interface RxBilling {
-  Observable<InventoryInApp> queryInAppPurchases(String... skuIds);
+Core functionality is provided in the [RxBilling](rxbilling/src/main/java/ml/introspectsoft/rxbilling/RxBilling.kt) class.
 
-  Observable<InventorySubscription> querySubscriptions(String... skuIds);
+## Gradle
 
-  Completable isBillingForInAppSupported();
+```groovy
+implementation 'not yet available'
+```
 
-  Completable isBillingForSubscriptionsSupported();
+## Kotlin
 
-  Single<PurchaseResponse> purchase(Inventory inventory, String developerPayload);
+```kotlin
+class YourActivity : Activity() {
+    private var rxBilling: RxBilling? = null
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate()
+        rxBilling = RxBilling(this)
+    }
 
-  Observable<PurchasedInApp> getPurchasedInApps();
-
-  Observable<PurchasedSubscription> getPurchasedSubscriptions();
-
-  Single<Integer> consumePurchase(PurchasedInApp purchasedInApp);
-
-  void destroy();
-
-  @interface BillingResponse {
-    int OK = 0;
-    int USER_CANCELED = 1;
-    int SERVICE_UNAVAILABLE = 2;
-    int BILLING_UNAVAILABLE = 3;
-    int ITEM_UNAVAILABLE = 4;
-    int DEVELOPER_ERROR = 5;
-    int ERROR = 6;
-    int ITEM_ALREADY_OWNED = 7;
-    int ITEM_NOT_OWNED = 8;
-  }
+    override fun onDestroy() {
+        super.onDestroy()
+        rxBilling!!.destroy()
+    }
 }
 ```
 
-The actual [interface](rxbilling/src/main/java/ml/introspectsoft/rxbilling/RxBilling.kt) also contains documentation.
-
-### Google Play Billing Library implementation
-
-```groovy
-implementation 'com.vanniktech:rxbilling-google-play-library:0.3.0'
-```
+## Java
 
 ```java
 class YourActivity extends Activity {
@@ -63,7 +47,7 @@ class YourActivity extends Activity {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate();
-    rxBilling = new RxBillingGooglePlayLibrary(this);
+    rxBilling = new RxBilling(this);
   }
 
   @Override public void onDestroy() {
