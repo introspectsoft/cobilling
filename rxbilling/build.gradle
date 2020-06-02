@@ -15,19 +15,27 @@
  * limitations under the License.
  */
 
+apply from: "${rootProject.projectDir}/buildsystem/config.gradle"
+//apply from: "${rootProject.projectDir}/../credentials.gradle"
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+project.buildDir = "../builds/"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+
+    compileSdkVersion configuration.compileSdkVersion
+    buildToolsVersion configuration.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 1
-        versionName "0.1.0"
+        minSdkVersion configuration.minimumSdkVersion
+        targetSdkVersion configuration.targetSdkVersion
+        versionCode buildVersionCode()
+        versionName buildVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,7 +43,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,9 +54,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.4.0-alpha01'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
-    implementation 'io.reactivex.rxjava3:rxkotlin:3.0.0'
     implementation 'com.android.billingclient:billing-ktx:2.2.1'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
@@ -66,5 +72,107 @@ dokka {
         androidVariants = ["debug", "release"]
     }
     outputFormat = "markdown"
-    outputDirectory = "build/outputs/dokka"
+    outputDirectory = "../builds/output/markdown"
+}
+
+task dokkaMarkdown(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    configuration {
+        androidVariants = ["debug", "release"]
+    }
+    outputFormat = "html"
+    outputDirectory = "../builds/output/javadoc"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'ml.introspectsoft.rxbilling'
+            artifactId = 'rxbilling2'
+            version = buildVersionName()
+
+            afterEvaluate {
+                from components.release
+            }
+            pom {
+                name = 'RxBilling2'
+                description = 'RxJava wrapper for Google Play Billing API '
+                url = 'https://introspectdev.github.io/RxBilling2/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'introspectdev'
+                        name = 'Jason Burgess'
+                        email = 'introspect.dev@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:https://github.com/introspectdev/RxBilling2.git'
+                    developerConnection = 'scm:git:ssh://example.com/my-library.git'
+                    url = 'https://github.com/introspectdev/RxBilling2'
+                }
+            }
+        }
+        debug(MavenPublication) {
+            groupId = 'ml.introspectsoft.rxbilling'
+            artifactId = 'rxbilling2-debug'
+            version = buildVersionName()
+
+            afterEvaluate {
+                from components.debug
+            }
+            pom {
+                name = 'RxBilling2'
+                description = 'RxJava wrapper for Google Play Billing API '
+                url = 'https://introspectdev.github.io/RxBilling2/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'introspectdev'
+                        name = 'Jason Burgess'
+                        email = 'introspect.dev@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:https://github.com/introspectdev/RxBilling2.git'
+                    developerConnection = 'scm:git:ssh://example.com/my-library.git'
+                    url = 'https://github.com/introspectdev/RxBilling2'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url = "${project.buildDir}/repo"
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.getProperty('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.getProperty('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['release']
+
+    pkg {
+        repo = 'rxbilling'
+        name = 'rxbilling2'
+        licenses = ['Apache-2.0']
+        userOrg = 'introspectsoft'
+        vcsUrl = 'https://github.com/introspectdev/RxBilling2.git'
+        version {
+            name = buildVersionName()
+            desc = buildVersionName()
+            released = new Date()
+        }
+    }
 }

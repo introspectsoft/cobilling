@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2020. Jason Burgess
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ext.configuration = [
+        versionMajor     : 0,
+        versionMinor     : 1,
+        versionPatch     : 1,
+        versionClassifier: "",
+        minimumSdkVersion: 16,
+        compileSdkVersion: 29,
+        targetSdkVersion : 29,
+        buildToolsVersion: "29.0.3"
+]
+
+def configuration = ext.configuration
+
+ext.buildVersionCode = {
+    return configuration.minimumSdkVersion * 10000000 + configuration.versionMajor * 10000 + configuration.versionMinor * 100 + configuration.versionPatch
+}
+
+ext.buildVersionNameWithoutClassifier = {
+    return configuration.versionMajor + "." + configuration.versionMinor + "." + configuration.versionPatch
+}
+
+ext.buildVersionName = {
+    String versionName = ext.buildVersionNameWithoutClassifier()
+    if (configuration.versionClassifier != null && !configuration.versionClassifier.isEmpty()) {
+        versionName = versionName + "-" + configuration.versionClassifier
+    }
+    return versionName
+}
