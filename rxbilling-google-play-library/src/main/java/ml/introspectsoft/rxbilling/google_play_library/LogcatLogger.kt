@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018 Vanniktech - Niklas Baudy
- * Modifications Copyright (c) 2020. Jason Burgess
+ * Copyright (c) 2020. Jason Burgess
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +14,7 @@
  * limitations under the License.
  */
 
-package ml.introspectsoft.google_play_library
+package ml.introspectsoft.rxbilling.google_play_library
 
 import android.util.Log
 import ml.introspectsoft.rxbilling.base.Logger

@@ -16,6 +16,6 @@
  */
 
 include ':base'
-include ':rxbilling'
+//include ':rxbilling'
 include ':rxbilling-google-play-library'
 rootProject.name = "RxBilling"

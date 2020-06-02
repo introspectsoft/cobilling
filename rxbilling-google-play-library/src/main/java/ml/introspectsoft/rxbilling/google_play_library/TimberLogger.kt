@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ml.introspectsoft.google_play_library
+package ml.introspectsoft.rxbilling.google_play_library
 
 import ml.introspectsoft.rxbilling.base.Logger
 import timber.log.Timber
