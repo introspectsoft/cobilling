@@ -17,7 +17,7 @@
 ext.configuration = [
         versionMajor     : 0,
         versionMinor     : 1,
-        versionPatch     : 2,
+        versionPatch     : 1,
         versionClassifier: "",
         minimumSdkVersion: 16,
         compileSdkVersion: 29,

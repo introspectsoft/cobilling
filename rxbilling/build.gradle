@@ -16,7 +16,6 @@
  */
 
 apply from: "${rootProject.projectDir}/buildsystem/config.gradle"
-//apply from: "${rootProject.projectDir}/../credentials.gradle"
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -96,7 +95,7 @@ publishing {
             pom {
                 name = 'RxBilling2'
                 description = 'RxJava wrapper for Google Play Billing API '
-                url = 'https://introspectdev.github.io/RxBilling2/'
+                url = 'https://introspectsoft.github.io/RxBilling2/'
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -111,9 +110,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:https://github.com/introspectdev/RxBilling2.git'
+                    connection = 'scm:https://github.com/introspectsoft/RxBilling2.git'
                     developerConnection = 'scm:git:ssh://example.com/my-library.git'
-                    url = 'https://github.com/introspectdev/RxBilling2'
+                    url = 'https://github.com/introspectsoft/RxBilling2'
                 }
             }
         }
@@ -128,7 +127,7 @@ publishing {
             pom {
                 name = 'RxBilling2'
                 description = 'RxJava wrapper for Google Play Billing API '
-                url = 'https://introspectdev.github.io/RxBilling2/'
+                url = 'https://introspectsoft.github.io/RxBilling2/'
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -143,9 +142,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:https://github.com/introspectdev/RxBilling2.git'
+                    connection = 'scm:https://github.com/introspectsoft/RxBilling2.git'
                     developerConnection = 'scm:git:ssh://example.com/my-library.git'
-                    url = 'https://github.com/introspectdev/RxBilling2'
+                    url = 'https://github.com/introspectsoft/RxBilling2'
                 }
             }
         }
@@ -164,11 +163,11 @@ bintray {
     publications = ['release']
 
     pkg {
-        repo = 'rxbilling'
-        name = 'rxbilling2'
+        repo = 'introspectsoft-maven'
+        name = 'RxBilling2'
         licenses = ['Apache-2.0']
         userOrg = 'introspectsoft'
-        vcsUrl = 'https://github.com/introspectdev/RxBilling2.git'
+        vcsUrl = 'https://github.com/introspectsoft/RxBilling2.git'
         version {
             name = buildVersionName()
             desc = buildVersionName()
