@@ -3,3 +3,6 @@
 # toInventory
 
 `fun SkuDetails.toInventory(): `[`Inventory`](../../ml.introspectsoft.rxbilling/-inventory/index.md)
+
+Extension function for [SkuDetails](#) to convert to [Inventory](../../ml.introspectsoft.rxbilling/-inventory/index.md).
+

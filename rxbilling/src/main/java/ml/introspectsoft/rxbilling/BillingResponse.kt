@@ -20,7 +20,6 @@ package ml.introspectsoft.rxbilling
 import androidx.annotation.IntDef
 
 /** Possible response codes.  */
-@kotlin.annotation.Retention(AnnotationRetention.SOURCE)
 @IntDef(
         BillingResponse.OK,
         BillingResponse.USER_CANCELED,
@@ -32,6 +31,7 @@ import androidx.annotation.IntDef
         BillingResponse.ITEM_ALREADY_OWNED,
         BillingResponse.ITEM_NOT_OWNED
 )
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 annotation class BillingResponse {
     companion object {
         /** Success  */

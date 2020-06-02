@@ -19,6 +19,9 @@ package ml.introspectsoft.rxbilling.SkuDetails
 import com.android.billingclient.api.SkuDetails
 import ml.introspectsoft.rxbilling.Inventory
 
+/**
+ * Extension function for [SkuDetails] to convert to [Inventory].
+ */
 fun SkuDetails.toInventory() = Inventory(
         sku, type, price, priceAmountMicros, priceCurrencyCode, title, description, this
 )

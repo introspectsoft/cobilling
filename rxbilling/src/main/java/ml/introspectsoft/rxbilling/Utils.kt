@@ -19,16 +19,20 @@ package ml.introspectsoft.rxbilling
 
 import java.math.BigDecimal
 
-
+/**
+ * Internal utility functions
+ */
 internal class Utils {
     companion object {
         private const val MICRO_SCALE = 6
         private const val ROUNDING_DIGITS = 2
+
+        /**
+         * Convert from micro units like [Inventory.priceAmountMicros] to BigDecimal
+         */
         fun asBigDecimal(micros: Long): BigDecimal {
-            return BigDecimal.valueOf(micros,
-                                      MICRO_SCALE
-            )
-                .setScale(ROUNDING_DIGITS, BigDecimal.ROUND_HALF_UP)
+            return BigDecimal.valueOf(micros, MICRO_SCALE)
+                    .setScale(ROUNDING_DIGITS, BigDecimal.ROUND_HALF_UP)
         }
     }
 }

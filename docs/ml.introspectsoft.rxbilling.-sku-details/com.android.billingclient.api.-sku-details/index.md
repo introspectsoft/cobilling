@@ -2,5 +2,5 @@
 
 ### Extensions for com.android.billingclient.api.SkuDetails
 
-| [toInventory](to-inventory.md) | `fun SkuDetails.toInventory(): `[`Inventory`](../../ml.introspectsoft.rxbilling/-inventory/index.md) |
+| [toInventory](to-inventory.md) | Extension function for [SkuDetails](#) to convert to [Inventory](../../ml.introspectsoft.rxbilling/-inventory/index.md).`fun SkuDetails.toInventory(): `[`Inventory`](../../ml.introspectsoft.rxbilling/-inventory/index.md) |
 
