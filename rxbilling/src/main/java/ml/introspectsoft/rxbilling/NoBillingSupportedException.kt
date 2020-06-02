@@ -15,5 +15,18 @@
  * limitations under the License.
  */
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.rxbilling
+
+/**
+ * Billing not supported exception.
+ *
+ * @param[responseCode] billing API response code provided
+ */
+class NoBillingSupportedException(@BillingResponse responseCode: Int) :
+    RuntimeException("Billing is not supported. ResponseCode: $responseCode") {
+
+    companion object {
+        const val serialVersionUID = 528555849848598969L
+    }
+
+}

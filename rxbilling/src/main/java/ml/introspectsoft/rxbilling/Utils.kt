@@ -15,5 +15,20 @@
  * limitations under the License.
  */
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.rxbilling
+
+import java.math.BigDecimal
+
+
+internal class Utils {
+    companion object {
+        private const val MICRO_SCALE = 6
+        private const val ROUNDING_DIGITS = 2
+        fun asBigDecimal(micros: Long): BigDecimal {
+            return BigDecimal.valueOf(micros,
+                                      MICRO_SCALE
+            )
+                .setScale(ROUNDING_DIGITS, BigDecimal.ROUND_HALF_UP)
+        }
+    }
+}

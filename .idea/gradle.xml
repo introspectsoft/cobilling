@@ -11,8 +11,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/base" />
-            <option value="$PROJECT_DIR$/rxbilling-google-play-library" />
+            <option value="$PROJECT_DIR$/rxbilling" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

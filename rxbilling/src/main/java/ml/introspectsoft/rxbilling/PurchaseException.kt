@@ -15,5 +15,17 @@
  * limitations under the License.
  */
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.rxbilling
+
+/**
+ * Billing purchase exception.
+ *
+ * @param[responseCode] billing API response code provided
+ */
+class PurchaseException(@BillingResponse responseCode: Int) :
+    RuntimeException("Error during purchase. ResponseCode: $responseCode") {
+
+    companion object {
+        const val serialVersionUID = 5285558498485989665L
+    }
+}

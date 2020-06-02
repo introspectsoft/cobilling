@@ -49,7 +49,7 @@ public interface RxBilling {
 }
 ```
 
-The actual [interface](rxbilling/src/main/java/com/vanniktech/rxbilling/RxBilling.java) also contains documentation.
+The actual [interface](rxbilling/src/main/java/ml/introspectsoft/rxbilling/RxBilling.kt) also contains documentation.
 
 ### Google Play Billing Library implementation
 

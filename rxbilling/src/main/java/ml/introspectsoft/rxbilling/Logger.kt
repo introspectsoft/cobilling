@@ -15,5 +15,11 @@
  * limitations under the License.
  */
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.rxbilling
+
+interface Logger {
+    fun d(log: String)
+    fun w(log: String)
+    fun w(throwable: Throwable)
+    fun e(log: String)
+}

@@ -15,5 +15,34 @@
  * limitations under the License.
  */
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.rxbilling
+
+import android.annotation.SuppressLint
+import android.util.Log
+
+internal class LogcatLogger : Logger {
+    @SuppressLint("LogNotTimber")
+    override fun d(log: String) {
+        Log.d(TAG, log)
+    }
+
+    @SuppressLint("LogNotTimber")
+    override fun w(log: String) {
+        Log.w(TAG, log)
+    }
+
+    @SuppressLint("LogNotTimber")
+    override fun w(throwable: Throwable) {
+        Log.w(TAG, throwable)
+    }
+
+    @SuppressLint("LogNotTimber")
+    override fun e(log: String) {
+        Log.e(TAG, log)
+    }
+
+    @SuppressLint("LogNotTimber")
+    companion object {
+        const val TAG = "RxBilling"
+    }
+}

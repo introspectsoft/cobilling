@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018 Vanniktech - Niklas Baudy
- * Modifications Copyright (c) 2020. Jason Burgess
+ * Copyright (c) 2020. Jason Burgess
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,5 +14,24 @@
  * limitations under the License.
  */
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.rxbilling
+
+import timber.log.Timber
+
+internal class TimberLogger : Logger {
+    override fun d(log: String) {
+        Timber.d(log)
+    }
+
+    override fun w(log: String) {
+        Timber.w(log)
+    }
+
+    override fun w(throwable: Throwable) {
+        Timber.w(throwable)
+    }
+
+    override fun e(log: String) {
+        Timber.e(log)
+    }
+}
