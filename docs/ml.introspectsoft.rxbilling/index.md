@@ -5,10 +5,12 @@
 ### Types
 
 | [Inventory](-inventory/index.md) | Data class for handling items to be purchased.`data class Inventory` |
-| [Logger](-logger/index.md) | `interface Logger` |
+| [LogcatLogger](-logcat-logger/index.md) | Wrapper for Logcat logging.`class LogcatLogger : `[`Logger`](-logger/index.md) |
+| [Logger](-logger/index.md) | Wrapper to the user's preferred Log function`interface Logger` |
 | [Purchased](-purchased/index.md) | Data class for handling purchase history data`data class Purchased` |
 | [PurchaseResponse](-purchase-response/index.md) | Data class for handling purchase response events.`data class PurchaseResponse` |
 | [RxBilling](-rx-billing/index.md) | Billing interface for Google's In-app Billing`class RxBilling` |
+| [TimberLogger](-timber-logger/index.md) | Timber log wrapper.`class TimberLogger : `[`Logger`](-logger/index.md) |
 
 ### Annotations
 

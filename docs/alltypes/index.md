@@ -25,7 +25,16 @@ Data class for handling items to be purchased.
 
 |
 
+##### [ml.introspectsoft.rxbilling.LogcatLogger](../ml.introspectsoft.rxbilling/-logcat-logger/index.md)
+
+Wrapper for Logcat logging.
+
+
+|
+
 ##### [ml.introspectsoft.rxbilling.Logger](../ml.introspectsoft.rxbilling/-logger/index.md)
+
+Wrapper to the user's preferred Log function
 
 
 |
@@ -66,5 +75,12 @@ Billing interface for Google's In-app Billing
 | (extensions in package ml.introspectsoft.rxbilling.SkuDetails)
 
 ##### [com.android.billingclient.api.SkuDetails](../ml.introspectsoft.rxbilling.-sku-details/com.android.billingclient.api.-sku-details/index.md)
+
+
+|
+
+##### [ml.introspectsoft.rxbilling.TimberLogger](../ml.introspectsoft.rxbilling/-timber-logger/index.md)
+
+Timber log wrapper.
 
 

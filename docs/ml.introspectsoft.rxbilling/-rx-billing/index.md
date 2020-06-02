@@ -10,7 +10,7 @@ Currently supports 2.2.1
 
 ### Constructors
 
-| [&lt;init&gt;](-init-.md) | Billing interface for Google's In-app Billing`RxBilling(activity: `[`Activity`](https://developer.android.com/reference/android/app/Activity.html)`, logger: `[`Logger`](../-logger/index.md)` = TimberLogger(), scheduler: Scheduler = Schedulers.io())` |
+| [&lt;init&gt;](-init-.md) | Billing interface for Google's In-app Billing`RxBilling(activity: `[`Activity`](https://developer.android.com/reference/android/app/Activity.html)`, logger: `[`Logger`](../-logger/index.md)` = LogcatLogger(), scheduler: Scheduler = Schedulers.io())` |
 
 ### Properties
 

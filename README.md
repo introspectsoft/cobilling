@@ -13,7 +13,7 @@ been combined into one package.
 
 Library documentation is available on [https://introspectdev.github.io/RxBilling2/].
 
-Core functionality is provided in the [RxBilling](rxbilling/src/main/java/ml/introspectsoft/rxbilling/RxBilling.kt) class.
+Core functionality is provided in the [RxBilling](https://introspectdev.github.io/RxBilling2/ml.introspectsoft.rxbilling/-rx-billing/) class.
 
 ## Gradle
 
