@@ -43,14 +43,14 @@ import java.util.*
  */
 
 data class Inventory(
-    val sku: String,
-    val type: String,
-    val price: String,
-    val priceAmountMicros: Long,
-    val priceCurrencyCode: String,
-    val title: String,
-    val description: String,
-    val skuDetails: SkuDetails? = null
+        val sku: String,
+        val type: String,
+        val price: String,
+        val priceAmountMicros: Long,
+        val priceCurrencyCode: String,
+        val title: String,
+        val description: String,
+        var skuDetails: SkuDetails? = null
 ) {
     /**
      * @return [Currency] for price.
@@ -66,3 +66,8 @@ data class Inventory(
     val priceAsBigDecimal: BigDecimal
         get() = Utils.asBigDecimal(priceAmountMicros)
 }
+
+fun SkuDetails.toInventory() = Inventory(
+        sku, type, price, priceAmountMicros, priceCurrencyCode, title, description, this
+)
+
