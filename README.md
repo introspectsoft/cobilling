@@ -11,9 +11,9 @@ been combined into one package.
 
 # Usage
 
-Library documentation is available on [https://introspectdev.github.io/RxBilling2/].
+Library documentation is available on [https://introspectsoft.github.io/RxBilling2/].
 
-Core functionality is provided in the [RxBilling](https://introspectdev.github.io/RxBilling2/ml.introspectsoft.rxbilling/-rx-billing/) class.
+Core functionality is provided in the [RxBilling](https://introspectsoft.github.io/RxBilling2/ml.introspectsoft.rxbilling/-rx-billing/) class.
 
 ## Gradle
 
