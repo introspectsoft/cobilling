@@ -17,6 +17,7 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion 29
@@ -58,4 +59,12 @@ dependencies {
 }
 repositories {
     mavenCentral()
+}
+
+dokka {
+    configuration {
+        androidVariants = ["debug", "release"]
+    }
+    outputFormat = "markdown"
+    outputDirectory = "build/outputs/dokka"
 }

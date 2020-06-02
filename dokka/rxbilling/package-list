@@ -1,0 +1,5 @@
+$dokka.format:markdown
+$dokka.linkExtension:md
+$dokka.location:ml.introspectsoft.rxbilling.SkuDetails$toInventory(com.android.billingclient.api.SkuDetails)ml.introspectsoft.rxbilling.-sku-details/com.android.billingclient.api.-sku-details/to-inventory.md
+ml.introspectsoft.rxbilling
+ml.introspectsoft.rxbilling.SkuDetails
