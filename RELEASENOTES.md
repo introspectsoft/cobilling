@@ -1,6 +1,6 @@
 # RxBilling2 Release Notes
 
-## 0.2.0-experimental
+## 0.2.1-experimental
 Released 2020-06-03
 
 * Updated to fully support Google Play Library 2.2.1

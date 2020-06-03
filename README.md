@@ -18,7 +18,7 @@ Core functionality is provided in the [RxBilling](https://introspectsoft.github.
 ## Gradle
 
 ```groovy
-implementation 'ml.introspectsoft.rxbilling:rxbilling2:0.2.0-experimental'
+implementation 'ml.introspectsoft.rxbilling:rxbilling2:0.2.1-experimental'
 ```
 
 ## Kotlin
