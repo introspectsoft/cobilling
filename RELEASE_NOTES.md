@@ -1,6 +1,6 @@
-= RxBilling2 Release Notes
+# RxBilling2 Release Notes
 
-== 0.2.0
+## 0.2.0-experimental
 Released yyyy-MM-dd
 
 * Updated to fully support Google Play Library 2.2.1
@@ -9,11 +9,10 @@ Released yyyy-MM-dd
   * Added support for BillingFlowParams.setObfuscatedAccountId() and BillingFlowParams.setObfuscatedProfileId()
 * Added toJson() to data classes
 * Added direct constructor from Google objects for data classes
-* Added more information to Inventory from origin SkuDetails
 * **Breaking changes**
   * Removed Purchased object and merged it with PurchaseResponse  
 
-== 0.1.1
+## 0.1.1-experimental
 Released 2020-06-02
 
 * Initial experimental release
