@@ -4,11 +4,12 @@
 
 ### Types
 
-| [Inventory](-inventory/index.md) | Data class for handling items to be purchased.`data class Inventory` |
+| [DataUtils](-data-utils/index.md) | Extension functions for data classes`interface DataUtils` |
+| [Inventory](-inventory/index.md) | Data class for handling items to be purchased.`data class Inventory : `[`DataUtils`](-data-utils/index.md) |
 | [LogcatLogger](-logcat-logger/index.md) | Wrapper for Logcat logging.`class LogcatLogger : `[`Logger`](-logger/index.md) |
 | [Logger](-logger/index.md) | Wrapper to the user's preferred Log function`interface Logger` |
-| [Purchased](-purchased/index.md) | Data class for handling purchase history data`data class Purchased` |
-| [PurchaseResponse](-purchase-response/index.md) | Data class for handling purchase response events.`data class PurchaseResponse` |
+| [PurchaseResponse](-purchase-response/index.md) | Data class for handling purchase history data`data class PurchaseResponse : `[`DataUtils`](-data-utils/index.md) |
+| [PurchasesUpdate](-purchases-update/index.md) | Updated purchase data from BillingClient.onPurchasesUpdated`data class PurchasesUpdate : `[`DataUtils`](-data-utils/index.md) |
 | [RxBilling](-rx-billing/index.md) | Billing interface for Google's In-app Billing`class RxBilling` |
 | [TimberLogger](-timber-logger/index.md) | Timber log wrapper.`class TimberLogger : `[`Logger`](-logger/index.md) |
 

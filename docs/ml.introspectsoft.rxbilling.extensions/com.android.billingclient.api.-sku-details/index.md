@@ -1,4 +1,4 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling.SkuDetails](../index.md) / [com.android.billingclient.api.SkuDetails](./index.md)
+[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling.extensions](../index.md) / [com.android.billingclient.api.SkuDetails](./index.md)
 
 ### Extensions for com.android.billingclient.api.SkuDetails
 

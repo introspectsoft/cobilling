@@ -1,4 +1,4 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling.SkuDetails](../index.md) / [com.android.billingclient.api.SkuDetails](index.md) / [toInventory](./to-inventory.md)
+[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling.extensions](../index.md) / [com.android.billingclient.api.SkuDetails](index.md) / [toInventory](./to-inventory.md)
 
 # toInventory
 

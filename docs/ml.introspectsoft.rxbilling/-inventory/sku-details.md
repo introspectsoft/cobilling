@@ -2,7 +2,7 @@
 
 # skuDetails
 
-`var skuDetails: SkuDetails?`
+`val skuDetails: SkuDetails?`
 
 SkuDetails object it was created from, if any
 

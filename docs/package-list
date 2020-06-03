@@ -1,5 +1,8 @@
 $dokka.format:markdown
 $dokka.linkExtension:md
-$dokka.location:ml.introspectsoft.rxbilling.SkuDetails$toInventory(com.android.billingclient.api.SkuDetails)ml.introspectsoft.rxbilling.-sku-details/com.android.billingclient.api.-sku-details/to-inventory.md
+$dokka.location:ml.introspectsoft.rxbilling.extensions$toHex(kotlin.ByteArray)ml.introspectsoft.rxbilling.extensions/kotlin.-byte-array/to-hex.md
+$dokka.location:ml.introspectsoft.rxbilling.extensions$toInventory(com.android.billingclient.api.SkuDetails)ml.introspectsoft.rxbilling.extensions/com.android.billingclient.api.-sku-details/to-inventory.md
+$dokka.location:ml.introspectsoft.rxbilling.extensions$toMD5(kotlin.String)ml.introspectsoft.rxbilling.extensions/kotlin.-string/to-m-d5.md
+$dokka.location:ml.introspectsoft.rxbilling.extensions$toSha256(kotlin.String)ml.introspectsoft.rxbilling.extensions/kotlin.-string/to-sha256.md
 ml.introspectsoft.rxbilling
-ml.introspectsoft.rxbilling.SkuDetails
+ml.introspectsoft.rxbilling.extensions

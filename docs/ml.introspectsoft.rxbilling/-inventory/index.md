@@ -2,7 +2,7 @@
 
 # Inventory
 
-`data class Inventory`
+`data class Inventory : `[`DataUtils`](../-data-utils/index.md)
 
 Data class for handling items to be purchased.
 
@@ -26,7 +26,7 @@ Data class for handling items to be purchased.
 
 ### Constructors
 
-| [&lt;init&gt;](-init-.md) | Data class for handling items to be purchased.`Inventory(sku: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, type: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, price: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, priceAmountMicros: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, priceCurrencyCode: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, title: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, description: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, skuDetails: SkuDetails? = null)` |
+| [&lt;init&gt;](-init-.md) | `Inventory(details: SkuDetails)`<br>Data class for handling items to be purchased.`Inventory(sku: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, type: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, price: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, priceAmountMicros: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, priceCurrencyCode: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, title: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, description: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`, skuDetails: SkuDetails? = null)` |
 
 ### Properties
 
@@ -37,7 +37,7 @@ Data class for handling items to be purchased.
 | [priceCurrency](price-currency.md) | `val priceCurrency: `[`Currency`](https://docs.oracle.com/javase/6/docs/api/java/util/Currency.html) |
 | [priceCurrencyCode](price-currency-code.md) | ISO 4217 currency code (localized)`val priceCurrencyCode: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 | [sku](sku.md) | product sku`val sku: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
-| [skuDetails](sku-details.md) | SkuDetails object it was created from, if any`var skuDetails: SkuDetails?` |
+| [skuDetails](sku-details.md) | SkuDetails object it was created from, if any`val skuDetails: SkuDetails?` |
 | [title](title.md) | product name`val title: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 | [type](type.md) | type of product. Will be SkuType.INAPP or SkuType.SUBS`val type: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 

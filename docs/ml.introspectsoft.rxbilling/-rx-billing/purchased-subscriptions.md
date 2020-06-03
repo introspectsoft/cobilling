@@ -2,9 +2,8 @@
 
 # purchasedSubscriptions
 
-`val purchasedSubscriptions: Observable<`[`Purchased`](../-purchased/index.md)`>`
+`val purchasedSubscriptions: Observable<`[`PurchaseResponse`](../-purchase-response/index.md)`>`
 
-**Return**
-all of the subscription purchases that have taken place already on by one and then completes.
+All of the subscription purchases that have taken place already on by one and then completes.
 In case there were none the Observable will just complete.
 
