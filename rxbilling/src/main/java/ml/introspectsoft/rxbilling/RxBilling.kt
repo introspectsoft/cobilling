@@ -212,6 +212,24 @@ class RxBilling(
     }
 
     /**
+     * Get purchases information from play store and triggers callback like it's coming from
+     * onPurchasesUpdated().
+     *
+     * Should be triggered when an activity loads to handle new purchases.
+     *
+     * @param[skuType] sku type to check for (INAPP or SUBS)
+     */
+    @CheckReturnValue
+    fun checkPurchases(skuType: String) {
+        connect().flatMap { client ->
+            Single.create<Int> { emitter ->
+                val result = client.queryPurchases(skuType)
+                purchaseSubject.onNext(PurchasesUpdate(result))
+            }
+        }.subscribeOn(scheduler)
+    }
+
+    /**
      * All of the InApp purchases that have taken place already on by one and then completes.
      * In case there were none the Observable will just complete.
      */
