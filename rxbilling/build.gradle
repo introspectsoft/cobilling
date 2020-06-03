@@ -164,7 +164,7 @@ bintray {
 
     pkg {
         repo = 'introspectsoft-maven'
-        name = 'RxBilling2'
+        name = 'ml.introspectsoft.rxbilling:rxbilling2'
         licenses = ['Apache-2.0']
         userOrg = 'introspectsoft'
         vcsUrl = 'https://github.com/introspectsoft/RxBilling2.git'

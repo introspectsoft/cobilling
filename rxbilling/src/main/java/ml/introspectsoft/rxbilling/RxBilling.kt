@@ -134,14 +134,13 @@ class RxBilling(
                 val params =
                         BillingFlowParams.newBuilder().setSkuDetails(inventory.skuDetails).build()
 
-                val responseCode = client.launchBillingFlow(activity, params)
-
-                logger.d("ResponseCode $responseCode for purchase when launching billing flow with $inventory")
+                val result = client.launchBillingFlow(activity, params)
+                logger.d("ResponseCode ${result.responseCode} for purchase when launching billing flow with ${inventory.toJson()}")
 
                 emitter.setDisposable(purchaseSubject.takeUntil { (_, purchases) -> purchases?.any { it.sku == inventory.sku } == true }
                                               .firstOrError()
-                                              .subscribe({ (code, purchases) ->
-                                                             when (code.responseCode) {
+                                              .subscribe({ (result, purchases) ->
+                                                             when (result.responseCode) {
                                                                  BillingResponse.OK -> {
                                                                      val match = requireNotNull(
                                                                              purchases
@@ -158,7 +157,7 @@ class RxBilling(
                                                                  }
                                                                  else               -> emitter.onError(
                                                                          PurchaseException(
-                                                                                 code.responseCode
+                                                                                 result.responseCode
                                                                          )
                                                                  )
                                                              }
@@ -265,12 +264,8 @@ class RxBilling(
             val client =
                     BillingClient.newBuilder(activity.application)
                             .enablePendingPurchases()
-                            .setListener { responseCode, purchases ->
-                                purchaseSubject.onNext(
-                                        PurchasesUpdate(
-                                                responseCode, purchases
-                                        )
-                                )
+                            .setListener { result, purchases ->
+                                purchaseSubject.onNext(PurchasesUpdate(result, purchases))
                             }
                             .build()
 
@@ -297,7 +292,7 @@ class RxBilling(
         }
     }
 
-    internal data class PurchasesUpdate(
-            val responseCode: BillingResult, val purchases: List<Purchase>?
+    data class PurchasesUpdate(
+            val result: BillingResult, val purchases: List<Purchase>?
     )
 }

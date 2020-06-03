@@ -44,6 +44,10 @@ data class Inventory(
         val description: String,
         var skuDetails: SkuDetails? = null
 ) {
+    fun toJson(): String {
+        TODO("Not implemented yet.")
+    }
+
     /**
      * @return [Currency] for price. (localized)
      */
