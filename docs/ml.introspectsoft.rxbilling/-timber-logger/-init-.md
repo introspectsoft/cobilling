@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [TimberLogger](index.md) / [&lt;init&gt;](./-init-.md)
+---
+title: TimberLogger.<init> - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [TimberLogger](index.html) / [&lt;init&gt;](./-init-.html)
 
 # &lt;init&gt;
 

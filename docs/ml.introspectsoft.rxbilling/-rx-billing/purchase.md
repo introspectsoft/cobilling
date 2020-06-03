@@ -1,17 +1,21 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [RxBilling](index.md) / [purchase](./purchase.md)
+---
+title: RxBilling.purchase - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [RxBilling](index.html) / [purchase](./purchase.html)
 
 # purchase
 
-`@CheckReturnValue fun purchase(inventory: `[`Inventory`](../-inventory/index.md)`, accountId: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`? = null, profileId: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`? = null): Single<BillingResult>`
+`@CheckReturnValue fun purchase(inventory: `[`Inventory`](../-inventory/index.html)`, accountId: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`? = null, profileId: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`? = null): Single<BillingResult>`
 
 Purchases the given inventory. which can be an InApp purchase or a subscription.
-You can get an instance of Inventory through the [queryInAppPurchases](query-in-app-purchases.md) or
-[querySubscriptions](query-subscriptions.md) method. Make sure that the billing for the type is supported by
-using [isBillingForSubscriptionsSupported](is-billing-for-subscriptions-supported.md) for subscriptions.
-In case of an error a [PurchaseException](../-purchase-exception/index.md) will be emitted.
+You can get an instance of Inventory through the [queryInAppPurchases](query-in-app-purchases.html) or
+[querySubscriptions](query-subscriptions.html) method. Make sure that the billing for the type is supported by
+using [isBillingForSubscriptionsSupported](is-billing-for-subscriptions-supported.html) for subscriptions.
+In case of an error a [PurchaseException](../-purchase-exception/index.html) will be emitted.
 
-The values of [accountId](purchase.md#ml.introspectsoft.rxbilling.RxBilling$purchase(ml.introspectsoft.rxbilling.Inventory, kotlin.String, kotlin.String)/accountId) and [profileId](purchase.md#ml.introspectsoft.rxbilling.RxBilling$purchase(ml.introspectsoft.rxbilling.Inventory, kotlin.String, kotlin.String)/profileId) will be hashed to remove personally identifying
-information. Values are hashed using [String.toSha256](../../ml.introspectsoft.rxbilling.extensions/kotlin.-string/to-sha256.md) which is included in this library.
+The values of [accountId](purchase.html#ml.introspectsoft.rxbilling.RxBilling$purchase(ml.introspectsoft.rxbilling.Inventory, kotlin.String, kotlin.String)/accountId) and [profileId](purchase.html#ml.introspectsoft.rxbilling.RxBilling$purchase(ml.introspectsoft.rxbilling.Inventory, kotlin.String, kotlin.String)/profileId) will be hashed to remove personally identifying
+information. Values are hashed using [String.toSha256](../../ml.introspectsoft.rxbilling.extensions/kotlin.-string/to-sha256.html) which is included in this library.
 
 ### Parameters
 

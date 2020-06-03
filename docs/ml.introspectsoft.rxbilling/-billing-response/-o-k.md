@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [BillingResponse](index.md) / [OK](./-o-k.md)
+---
+title: BillingResponse.OK - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [BillingResponse](index.html) / [OK](./-o-k.html)
 
 # OK
 

@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseResponse](index.md) / [isAutoRenewing](./is-auto-renewing.md)
+---
+title: PurchaseResponse.isAutoRenewing - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseResponse](index.html) / [isAutoRenewing](./is-auto-renewing.html)
 
 # isAutoRenewing
 

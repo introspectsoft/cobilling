@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseResponse](index.md) / [isAcknowledged](./is-acknowledged.md)
+---
+title: PurchaseResponse.isAcknowledged - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseResponse](index.html) / [isAcknowledged](./is-acknowledged.html)
 
 # isAcknowledged
 

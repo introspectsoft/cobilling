@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling.extensions](../index.md) / [kotlin.String](index.md) / [toMD5](./to-m-d5.md)
+---
+title: toMD5 - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling.extensions](../index.html) / [kotlin.String](index.html) / [toMD5](./to-m-d5.html)
 
 # toMD5
 

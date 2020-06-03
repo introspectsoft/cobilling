@@ -71,7 +71,7 @@ dokka {
     configuration {
         androidVariants = ["debug", "release"]
     }
-    outputFormat = "markdown"
+    outputFormat = "jekyll"
     outputDirectory = "../builds/outputs/markdown"
 }
 

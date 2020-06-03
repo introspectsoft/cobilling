@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [LogcatLogger](index.md) / [d](./d.md)
+---
+title: LogcatLogger.d - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [LogcatLogger](index.html) / [d](./d.html)
 
 # d
 

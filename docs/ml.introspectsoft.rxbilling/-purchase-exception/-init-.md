@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseException](index.md) / [&lt;init&gt;](./-init-.md)
+---
+title: PurchaseException.<init> - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseException](index.html) / [&lt;init&gt;](./-init-.html)
 
 # &lt;init&gt;
 

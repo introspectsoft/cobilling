@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [RxBilling](index.md) / [consumePurchase](./consume-purchase.md)
+---
+title: RxBilling.consumePurchase - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [RxBilling](index.html) / [consumePurchase](./consume-purchase.html)
 
 # consumePurchase
 

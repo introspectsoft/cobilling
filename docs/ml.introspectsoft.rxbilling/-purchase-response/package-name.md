@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseResponse](index.md) / [packageName](./package-name.md)
+---
+title: PurchaseResponse.packageName - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseResponse](index.html) / [packageName](./package-name.html)
 
 # packageName
 

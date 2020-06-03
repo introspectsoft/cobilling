@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [Inventory](index.md) / [priceAsBigDecimal](./price-as-big-decimal.md)
+---
+title: Inventory.priceAsBigDecimal - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [Inventory](index.html) / [priceAsBigDecimal](./price-as-big-decimal.html)
 
 # priceAsBigDecimal
 

@@ -1,10 +1,14 @@
-[rxbilling](./index.md)
+---
+title: rxbilling
+---
+
+[rxbilling](./index.html)
 
 ### Packages
 
-| [ml.introspectsoft.rxbilling](ml.introspectsoft.rxbilling/index.md) |  |
-| [ml.introspectsoft.rxbilling.extensions](ml.introspectsoft.rxbilling.extensions/index.md) |  |
+| [ml.introspectsoft.rxbilling](ml.introspectsoft.rxbilling/index.html) |  |
+| [ml.introspectsoft.rxbilling.extensions](ml.introspectsoft.rxbilling.extensions/index.html) |  |
 
 ### Index
 
-[All Types](alltypes/index.md)
+[All Types](alltypes/index.html)

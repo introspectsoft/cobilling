@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [Inventory](index.md) / [type](./type.md)
+---
+title: Inventory.type - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [Inventory](index.html) / [type](./type.html)
 
 # type
 

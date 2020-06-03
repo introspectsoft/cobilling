@@ -1,8 +1,12 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchasesUpdate](./index.md)
+---
+title: PurchasesUpdate - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchasesUpdate](./index.html)
 
 # PurchasesUpdate
 
-`data class PurchasesUpdate : `[`DataUtils`](../-data-utils/index.md)
+`data class PurchasesUpdate : `[`DataUtils`](../-data-utils/index.html)
 
 Updated purchase data from BillingClient.onPurchasesUpdated
 
@@ -14,10 +18,10 @@ Updated purchase data from BillingClient.onPurchasesUpdated
 
 ### Constructors
 
-| [&lt;init&gt;](-init-.md) | `PurchasesUpdate(purchasesResult: PurchasesResult)`<br>Updated purchase data from BillingClient.onPurchasesUpdated`PurchasesUpdate(result: BillingResult, purchases: `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<Purchase>?)` |
+| [&lt;init&gt;](-init-.html) | `PurchasesUpdate(purchasesResult: PurchasesResult)`<br>Updated purchase data from BillingClient.onPurchasesUpdated`PurchasesUpdate(result: BillingResult, purchases: `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<Purchase>?)` |
 
 ### Properties
 
-| [purchases](purchases.md) | list of changed purchases to process`val purchases: `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<Purchase>?` |
-| [result](result.md) | BillingResult of response`val result: BillingResult` |
+| [purchases](purchases.html) | list of changed purchases to process`val purchases: `[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)`<Purchase>?` |
+| [result](result.html) | BillingResult of response`val result: BillingResult` |
 

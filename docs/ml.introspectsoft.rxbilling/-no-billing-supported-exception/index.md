@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [NoBillingSupportedException](./index.md)
+---
+title: NoBillingSupportedException - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [NoBillingSupportedException](./index.html)
 
 # NoBillingSupportedException
 
@@ -12,9 +16,9 @@ Billing not supported exception.
 
 ### Constructors
 
-| [&lt;init&gt;](-init-.md) | Billing not supported exception.`NoBillingSupportedException(responseCode: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`)` |
+| [&lt;init&gt;](-init-.html) | Billing not supported exception.`NoBillingSupportedException(responseCode: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`)` |
 
 ### Companion Object Properties
 
-| [serialVersionUID](serial-version-u-i-d.md) | `const val serialVersionUID: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
+| [serialVersionUID](serial-version-u-i-d.html) | `const val serialVersionUID: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
 

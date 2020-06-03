@@ -1,11 +1,15 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [RxBilling](index.md) / [querySubscriptions](./query-subscriptions.md)
+---
+title: RxBilling.querySubscriptions - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [RxBilling](index.html) / [querySubscriptions](./query-subscriptions.html)
 
 # querySubscriptions
 
-`@CheckReturnValue fun querySubscriptions(vararg skuIds: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): Observable<`[`Inventory`](../-inventory/index.md)`?>`
+`@CheckReturnValue fun querySubscriptions(vararg skuIds: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): Observable<`[`Inventory`](../-inventory/index.html)`?>`
 
 Queries subscriptions by the given sku ids and emits those one by one and then completes.
-Make sure that the billing is supported first by using [isBillingForSubscriptionsSupported](is-billing-for-subscriptions-supported.md).
+Make sure that the billing is supported first by using [isBillingForSubscriptionsSupported](is-billing-for-subscriptions-supported.html).
 
 ### Parameters
 

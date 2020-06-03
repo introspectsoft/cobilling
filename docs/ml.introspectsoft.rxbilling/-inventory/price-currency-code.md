@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [Inventory](index.md) / [priceCurrencyCode](./price-currency-code.md)
+---
+title: Inventory.priceCurrencyCode - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [Inventory](index.html) / [priceCurrencyCode](./price-currency-code.html)
 
 # priceCurrencyCode
 

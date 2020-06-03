@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [InAppBillingException](index.md) / [serialVersionUID](./serial-version-u-i-d.md)
+---
+title: InAppBillingException.serialVersionUID - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [InAppBillingException](index.html) / [serialVersionUID](./serial-version-u-i-d.html)
 
 # serialVersionUID
 

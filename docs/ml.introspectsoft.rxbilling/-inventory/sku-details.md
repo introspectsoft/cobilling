@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [Inventory](index.md) / [skuDetails](./sku-details.md)
+---
+title: Inventory.skuDetails - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [Inventory](index.html) / [skuDetails](./sku-details.html)
 
 # skuDetails
 

@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [RxBilling](index.md) / [acknowledgePurchase](./acknowledge-purchase.md)
+---
+title: RxBilling.acknowledgePurchase - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [RxBilling](index.html) / [acknowledgePurchase](./acknowledge-purchase.html)
 
 # acknowledgePurchase
 

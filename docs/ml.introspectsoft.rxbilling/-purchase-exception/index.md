@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseException](./index.md)
+---
+title: PurchaseException - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseException](./index.html)
 
 # PurchaseException
 
@@ -12,9 +16,9 @@ Billing purchase exception.
 
 ### Constructors
 
-| [&lt;init&gt;](-init-.md) | Billing purchase exception.`PurchaseException(responseCode: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`)` |
+| [&lt;init&gt;](-init-.html) | Billing purchase exception.`PurchaseException(responseCode: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`)` |
 
 ### Companion Object Properties
 
-| [serialVersionUID](serial-version-u-i-d.md) | `const val serialVersionUID: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
+| [serialVersionUID](serial-version-u-i-d.html) | `const val serialVersionUID: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
 

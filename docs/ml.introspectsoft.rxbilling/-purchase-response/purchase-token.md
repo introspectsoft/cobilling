@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseResponse](index.md) / [purchaseToken](./purchase-token.md)
+---
+title: PurchaseResponse.purchaseToken - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseResponse](index.html) / [purchaseToken](./purchase-token.html)
 
 # purchaseToken
 

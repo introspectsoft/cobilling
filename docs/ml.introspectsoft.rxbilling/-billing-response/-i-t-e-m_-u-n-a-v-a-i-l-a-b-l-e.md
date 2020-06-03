@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [BillingResponse](index.md) / [ITEM_UNAVAILABLE](./-i-t-e-m_-u-n-a-v-a-i-l-a-b-l-e.md)
+---
+title: BillingResponse.ITEM_UNAVAILABLE - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [BillingResponse](index.html) / [ITEM_UNAVAILABLE](./-i-t-e-m_-u-n-a-v-a-i-l-a-b-l-e.html)
 
 # ITEM_UNAVAILABLE
 

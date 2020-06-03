@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [BillingResponse](index.md) / [USER_CANCELED](./-u-s-e-r_-c-a-n-c-e-l-e-d.md)
+---
+title: BillingResponse.USER_CANCELED - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [BillingResponse](index.html) / [USER_CANCELED](./-u-s-e-r_-c-a-n-c-e-l-e-d.html)
 
 # USER_CANCELED
 

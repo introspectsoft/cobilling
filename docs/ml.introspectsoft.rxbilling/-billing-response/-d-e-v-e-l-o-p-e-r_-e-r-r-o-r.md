@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [BillingResponse](index.md) / [DEVELOPER_ERROR](./-d-e-v-e-l-o-p-e-r_-e-r-r-o-r.md)
+---
+title: BillingResponse.DEVELOPER_ERROR - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [BillingResponse](index.html) / [DEVELOPER_ERROR](./-d-e-v-e-l-o-p-e-r_-e-r-r-o-r.html)
 
 # DEVELOPER_ERROR
 

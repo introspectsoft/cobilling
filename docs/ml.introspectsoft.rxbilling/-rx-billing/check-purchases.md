@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [RxBilling](index.md) / [checkPurchases](./check-purchases.md)
+---
+title: RxBilling.checkPurchases - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [RxBilling](index.html) / [checkPurchases](./check-purchases.html)
 
 # checkPurchases
 

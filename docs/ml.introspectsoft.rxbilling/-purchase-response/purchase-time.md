@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseResponse](index.md) / [purchaseTime](./purchase-time.md)
+---
+title: PurchaseResponse.purchaseTime - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseResponse](index.html) / [purchaseTime](./purchase-time.html)
 
 # purchaseTime
 

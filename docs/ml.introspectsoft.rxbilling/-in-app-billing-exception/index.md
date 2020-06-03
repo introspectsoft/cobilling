@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [InAppBillingException](./index.md)
+---
+title: InAppBillingException - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [InAppBillingException](./index.html)
 
 # InAppBillingException
 
@@ -12,9 +16,9 @@ In App billing error exception
 
 ### Constructors
 
-| [&lt;init&gt;](-init-.md) | In App billing error exception`InAppBillingException(responseCode: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`)` |
+| [&lt;init&gt;](-init-.html) | In App billing error exception`InAppBillingException(responseCode: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`)` |
 
 ### Companion Object Properties
 
-| [serialVersionUID](serial-version-u-i-d.md) | `const val serialVersionUID: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
+| [serialVersionUID](serial-version-u-i-d.html) | `const val serialVersionUID: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
 

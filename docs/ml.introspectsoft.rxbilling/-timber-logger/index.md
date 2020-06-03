@@ -1,8 +1,12 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [TimberLogger](./index.md)
+---
+title: TimberLogger - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [TimberLogger](./index.html)
 
 # TimberLogger
 
-`class TimberLogger : `[`Logger`](../-logger/index.md)
+`class TimberLogger : `[`Logger`](../-logger/index.html)
 
 Timber log wrapper.
 
@@ -10,11 +14,11 @@ Note: This currently doesn't work properly because Timber is then being called b
 
 ### Constructors
 
-| [&lt;init&gt;](-init-.md) | Timber log wrapper.`TimberLogger()` |
+| [&lt;init&gt;](-init-.html) | Timber log wrapper.`TimberLogger()` |
 
 ### Functions
 
-| [d](d.md) | `fun d(log: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [e](e.md) | `fun e(log: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [w](w.md) | `fun w(log: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>`fun w(throwable: `[`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [d](d.html) | `fun d(log: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [e](e.html) | `fun e(log: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [w](w.html) | `fun w(log: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>`fun w(throwable: `[`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 

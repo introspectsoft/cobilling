@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [InAppBillingException](index.md) / [&lt;init&gt;](./-init-.md)
+---
+title: InAppBillingException.<init> - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [InAppBillingException](index.html) / [&lt;init&gt;](./-init-.html)
 
 # &lt;init&gt;
 

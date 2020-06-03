@@ -1,5 +1,9 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [RxBilling](index.md) / [purchasesUpdated](./purchases-updated.md)
+---
+title: RxBilling.purchasesUpdated - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [RxBilling](index.html) / [purchasesUpdated](./purchases-updated.html)
 
 # purchasesUpdated
 
-`val purchasesUpdated: @NonNull PublishSubject<`[`PurchasesUpdate`](../-purchases-update/index.md)`>`
+`val purchasesUpdated: @NonNull PublishSubject<`[`PurchasesUpdate`](../-purchases-update/index.html)`>`

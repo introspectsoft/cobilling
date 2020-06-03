@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [BillingResponse](index.md) / [ITEM_ALREADY_OWNED](./-i-t-e-m_-a-l-r-e-a-d-y_-o-w-n-e-d.md)
+---
+title: BillingResponse.ITEM_ALREADY_OWNED - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [BillingResponse](index.html) / [ITEM_ALREADY_OWNED](./-i-t-e-m_-a-l-r-e-a-d-y_-o-w-n-e-d.html)
 
 # ITEM_ALREADY_OWNED
 

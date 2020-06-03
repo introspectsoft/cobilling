@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling.extensions](../index.md) / [kotlin.ByteArray](index.md) / [toHex](./to-hex.md)
+---
+title: toHex - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling.extensions](../index.html) / [kotlin.ByteArray](index.html) / [toHex](./to-hex.html)
 
 # toHex
 

@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [Inventory](index.md) / [priceAmountMicros](./price-amount-micros.md)
+---
+title: Inventory.priceAmountMicros - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [Inventory](index.html) / [priceAmountMicros](./price-amount-micros.html)
 
 # priceAmountMicros
 

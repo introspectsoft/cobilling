@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [PurchaseResponse](index.md) / [purchaseOrderId](./purchase-order-id.md)
+---
+title: PurchaseResponse.purchaseOrderId - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [PurchaseResponse](index.html) / [purchaseOrderId](./purchase-order-id.html)
 
 # purchaseOrderId
 

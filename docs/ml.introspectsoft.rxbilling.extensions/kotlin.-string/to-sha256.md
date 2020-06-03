@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling.extensions](../index.md) / [kotlin.String](index.md) / [toSha256](./to-sha256.md)
+---
+title: toSha256 - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling.extensions](../index.html) / [kotlin.String](index.html) / [toSha256](./to-sha256.html)
 
 # toSha256
 

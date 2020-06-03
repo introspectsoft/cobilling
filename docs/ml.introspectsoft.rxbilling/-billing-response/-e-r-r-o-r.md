@@ -1,4 +1,8 @@
-[rxbilling](../../index.md) / [ml.introspectsoft.rxbilling](../index.md) / [BillingResponse](index.md) / [ERROR](./-e-r-r-o-r.md)
+---
+title: BillingResponse.ERROR - rxbilling
+---
+
+[rxbilling](../../index.html) / [ml.introspectsoft.rxbilling](../index.html) / [BillingResponse](index.html) / [ERROR](./-e-r-r-o-r.html)
 
 # ERROR
 
