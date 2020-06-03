@@ -40,8 +40,19 @@ data class Inventory(
         val priceCurrencyCode: String,
         val title: String,
         val description: String,
-        var skuDetails: SkuDetails? = null
+        val skuDetails: SkuDetails? = null
 ) : DataUtils {
+    constructor(details: SkuDetails) : this(
+            details.sku,
+            details.type,
+            details.price,
+            details.priceAmountMicros,
+            details.priceCurrencyCode,
+            details.title,
+            details.description,
+            details
+    )
+
     /**
      * @return [Currency] for price. (localized)
      */

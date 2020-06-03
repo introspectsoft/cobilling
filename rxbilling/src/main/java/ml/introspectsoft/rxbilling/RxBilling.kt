@@ -222,7 +222,7 @@ class RxBilling(
     @CheckReturnValue
     fun checkPurchases(skuType: String) {
         connect().flatMap { client ->
-            Single.create<Int> { emitter ->
+            Single.create<Int> {
                 val result = client.queryPurchases(skuType)
                 purchaseSubject.onNext(PurchasesUpdate(result))
             }

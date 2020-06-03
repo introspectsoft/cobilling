@@ -22,6 +22,4 @@ import ml.introspectsoft.rxbilling.Inventory
 /**
  * Extension function for [SkuDetails] to convert to [Inventory].
  */
-fun SkuDetails.toInventory() = Inventory(
-        sku, type, price, priceAmountMicros, priceCurrencyCode, title, description, this
-)
+fun SkuDetails.toInventory() = Inventory(this)
