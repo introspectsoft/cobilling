@@ -32,4 +32,4 @@ data class PurchaseResponse(
         val purchaseToken: String,
         @BillingResponse val purchaseState: Int,
         val purchaseTime: Long
-)
+) : DataUtils

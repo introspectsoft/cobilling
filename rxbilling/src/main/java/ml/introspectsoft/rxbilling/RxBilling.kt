@@ -291,8 +291,4 @@ class RxBilling(
             emitter.onSuccess(requireNotNull(billingClient))
         }
     }
-
-    data class PurchasesUpdate(
-            val result: BillingResult, val purchases: List<Purchase>?
-    )
 }

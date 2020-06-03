@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("SpellCheckingInspection")
-
 package ml.introspectsoft.rxbilling
 
 import com.android.billingclient.api.SkuDetails
@@ -43,11 +41,7 @@ data class Inventory(
         val title: String,
         val description: String,
         var skuDetails: SkuDetails? = null
-) {
-    fun toJson(): String {
-        TODO("Not implemented yet.")
-    }
-
+) : DataUtils {
     /**
      * @return [Currency] for price. (localized)
      */
