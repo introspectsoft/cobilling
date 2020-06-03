@@ -41,7 +41,9 @@ class RxBilling(
         private val scheduler: Scheduler = Schedulers.io()
 ) {
     private var billingClient: BillingClient? = null
-    private val purchaseSubject = PublishSubject.create<PurchasesUpdate>()
+
+    val purchasesUpdated: @NonNull PublishSubject<PurchasesUpdate> =
+            PublishSubject.create<PurchasesUpdate>()
 
     /**
      * Destroys the current session and releases all of the references.
@@ -118,80 +120,21 @@ class RxBilling(
                 .subscribeOn(scheduler) // https://issuetracker.google.com/issues/123447114
 
     /**
-     * Purchases the given inventory. which can be an InApp purchase or a subscription.
-     * You can get an instance of Inventory through the [queryInAppPurchases] or
-     * [querySubscriptions] method. Make sure that the billing for the type is supported by
-     * using [isBillingForSubscriptionsSupported] for subscriptions.
-     * In case of an error a [PurchaseException] will be emitted.
-     *
-     * The values of [accountId] and [profileId] will be hashed to remove personally identifying
-     * information. Values are hashed using [String.toSha256] which is included in this library.
-     *
-     * @param[inventory] the given inventory to purchase. Can either be a one time purchase or a subscription.
-     * @param[accountId] account id to be sent with the purchase
-     * @param[profileId] profile id to be sent with the purchase if your app supports multiple profiles
-     */
-    @CheckReturnValue
-    fun purchase(
-            inventory: Inventory, accountId: String? = null, profileId: String? = null
-    ): Single<PurchaseResponse> {
-        logger.d("Trying to purchase $inventory")
-
-        return connect().flatMap { client ->
-            Single.create<PurchaseResponse> { emitter ->
-                val builder = BillingFlowParams.newBuilder().setSkuDetails(inventory.skuDetails)
-
-                // Add hashed identifiers to request
-                if (!accountId.isNullOrEmpty()) {
-                    builder.setObfuscatedAccountId(accountId.toSha256())
-                }
-                if (!profileId.isNullOrEmpty()) {
-                    builder.setObfuscatedProfileId(profileId.toSha256())
-                }
-
-                val params = builder.build()
-
-                val result = client.launchBillingFlow(activity, params)
-                logger.d("ResponseCode ${result.responseCode} for purchase when launching billing flow with ${inventory.toJson()}")
-
-                emitter.setDisposable(purchaseSubject.takeUntil { (_, purchases) ->
-                    purchases?.any { it.sku == inventory.sku } == true
-                }.firstOrError().subscribe({ (result, purchases) ->
-                                               when (result.responseCode) {
-                                                   BillingResponse.OK -> {
-                                                       val match = requireNotNull(
-                                                               purchases
-                                                       ).first { it.sku == inventory.sku }
-                                                       emitter.onSuccess(
-                                                               PurchaseResponse(match)
-                                                       )
-                                                   }
-                                                   else               -> emitter.onError(
-                                                           PurchaseException(result.responseCode)
-                                                   )
-                                               }
-                                           }, emitter::onError)
-                )
-            }
-        }.subscribeOn(scheduler)
-    }
-
-    /**
      * Acknowledge the given InApp purchase which has been bought.
      * Purchases not acknowledged or consumed after 3 days are refunded.
      *
-     * @param purchasedInApp the purchased in app purchase to consume
+     * @param[purchased] the purchased in app purchase to consume
      * @return Single containing the BillingResponse
      */
     @CheckReturnValue
-    fun acknowledgePurchase(purchasedInApp: PurchaseResponse): Single<Int> {
-        logger.d("Trying to acknowledge purchase $purchasedInApp")
+    fun acknowledgePurchase(purchased: Purchase): Single<Int> {
+        logger.d("Trying to acknowledge purchase ${purchased.sku} (${purchased.purchaseToken})")
 
         return connect().flatMap { client ->
             Single.create<Int> { emitter ->
                 val params =
                         AcknowledgePurchaseParams.newBuilder()
-                                .setPurchaseToken(purchasedInApp.purchaseToken)
+                                .setPurchaseToken(purchased.purchaseToken)
                                 .build()
                 client.acknowledgePurchase(params) { result ->
                     emitter.onSuccess(
@@ -207,19 +150,17 @@ class RxBilling(
      * Consumes the given InApp purchase which has been bought.
      * Purchases not acknowledged or consumed after 3 days are refunded.
      *
-     * @param purchasedInApp the purchased in app purchase to consume
+     * @param[purchased] the purchased in app purchase to consume
      * @return Single containing the BillingResponse
      */
     @CheckReturnValue
-    fun consumePurchase(purchasedInApp: PurchaseResponse): Single<Int> {
-        logger.d("Trying to consume purchase $purchasedInApp")
+    fun consumePurchase(purchased: Purchase): Single<Int> {
+        logger.d("Trying to consume purchase ${purchased.sku} (${purchased.purchaseToken})")
 
         return connect().flatMap { client ->
             Single.create<Int> { emitter ->
                 val params =
-                        ConsumeParams.newBuilder()
-                                .setPurchaseToken(purchasedInApp.purchaseToken)
-                                .build()
+                        ConsumeParams.newBuilder().setPurchaseToken(purchased.purchaseToken).build()
                 client.consumeAsync(params) { result, _ ->
                     emitter.onSuccess(result.responseCode)
                 }
@@ -240,7 +181,7 @@ class RxBilling(
         connect().flatMap { client ->
             Single.create<Int> {
                 val result = client.queryPurchases(skuType)
-                purchaseSubject.onNext(PurchasesUpdate(result))
+                purchasesUpdated.onNext(PurchasesUpdate(result))
             }
         }.subscribeOn(scheduler)
     }
@@ -288,7 +229,7 @@ class RxBilling(
                     BillingClient.newBuilder(activity.application)
                             .enablePendingPurchases()
                             .setListener { result, purchases ->
-                                purchaseSubject.onNext(PurchasesUpdate(result, purchases))
+                                purchasesUpdated.onNext(PurchasesUpdate(result, purchases))
                             }
                             .build()
 
@@ -313,5 +254,45 @@ class RxBilling(
         } else {
             emitter.onSuccess(requireNotNull(billingClient))
         }
+    }
+
+    /**
+     * Purchases the given inventory. which can be an InApp purchase or a subscription.
+     * You can get an instance of Inventory through the [queryInAppPurchases] or
+     * [querySubscriptions] method. Make sure that the billing for the type is supported by
+     * using [isBillingForSubscriptionsSupported] for subscriptions.
+     * In case of an error a [PurchaseException] will be emitted.
+     *
+     * The values of [accountId] and [profileId] will be hashed to remove personally identifying
+     * information. Values are hashed using [String.toSha256] which is included in this library.
+     *
+     * @param[inventory] the given inventory to purchase. Can either be a one time purchase or a subscription.
+     * @param[accountId] account id to be sent with the purchase
+     * @param[profileId] profile id to be sent with the purchase if your app supports multiple profiles
+     */
+    @CheckReturnValue
+    fun purchase(
+            inventory: Inventory, accountId: String? = null, profileId: String? = null
+    ): Single<BillingResult> {
+        return connect().flatMap { client: BillingClient ->
+            Single.create<BillingResult> { emitter ->
+                val builder = BillingFlowParams.newBuilder().setSkuDetails(inventory.skuDetails)
+
+                // Add hashed identifiers to request
+                if (!accountId.isNullOrEmpty()) {
+                    builder.setObfuscatedAccountId(accountId.toSha256())
+                }
+                if (!profileId.isNullOrEmpty()) {
+                    builder.setObfuscatedProfileId(profileId.toSha256())
+                }
+
+                val params = builder.build()
+
+                val result: BillingResult = client.launchBillingFlow(activity, params)
+                logger.d("ResponseCode ${result.responseCode} for purchase when launching billing flow with ${inventory.toJson()}")
+
+                emitter.onSuccess(result)
+            }
+        }.subscribeOn(scheduler)
     }
 }

@@ -9,6 +9,7 @@ Released yyyy-MM-dd
   * Added support for BillingFlowParams.setObfuscatedAccountId() and BillingFlowParams.setObfuscatedProfileId()
 * Added toJson() to data classes
 * Added direct constructor from Google objects for data classes
+* Added String.toSha256() and String.toMD5()
 * **Breaking changes**
   * Removed Purchased object and merged it with PurchaseResponse  
 
