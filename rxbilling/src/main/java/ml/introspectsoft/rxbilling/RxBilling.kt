@@ -27,7 +27,8 @@ import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
-import ml.introspectsoft.rxbilling.SkuDetails.toInventory
+import ml.introspectsoft.rxbilling.extensions.toInventory
+import ml.introspectsoft.rxbilling.extensions.toSha256
 
 /**
  * Billing interface for Google's In-app Billing
@@ -123,38 +124,53 @@ class RxBilling(
      * using [isBillingForSubscriptionsSupported] for subscriptions.
      * In case of an error a [PurchaseException] will be emitted.
      *
-     * @param inventory the given inventory to purchase. Can either be an InApp purchase or a subscription.
+     * The values of [accountId] and [profileId] will be hashed to remove personally identifying
+     * information. Values are hashed using [String.toSha256] which is included in this library.
+     *
+     * @param[inventory] the given inventory to purchase. Can either be a one time purchase or a subscription.
+     * @param[accountId] account id to be sent with the purchase
+     * @param[profileId] profile id to be sent with the purchase if your app supports multiple profiles
      */
     @CheckReturnValue
-    fun purchase(inventory: Inventory): Single<PurchaseResponse> {
+    fun purchase(
+            inventory: Inventory, accountId: String? = null, profileId: String? = null
+    ): Single<PurchaseResponse> {
         logger.d("Trying to purchase $inventory")
 
         return connect().flatMap { client ->
             Single.create<PurchaseResponse> { emitter ->
-                val params =
-                        BillingFlowParams.newBuilder().setSkuDetails(inventory.skuDetails).build()
+                val builder = BillingFlowParams.newBuilder().setSkuDetails(inventory.skuDetails)
+
+                // Add hashed identifiers to request
+                if (!accountId.isNullOrEmpty()) {
+                    builder.setObfuscatedAccountId(accountId.toSha256())
+                }
+                if (!profileId.isNullOrEmpty()) {
+                    builder.setObfuscatedProfileId(profileId.toSha256())
+                }
+
+                val params = builder.build()
 
                 val result = client.launchBillingFlow(activity, params)
                 logger.d("ResponseCode ${result.responseCode} for purchase when launching billing flow with ${inventory.toJson()}")
 
-                emitter.setDisposable(purchaseSubject.takeUntil { (_, purchases) -> purchases?.any { it.sku == inventory.sku } == true }
-                                              .firstOrError()
-                                              .subscribe({ (result, purchases) ->
-                                                             when (result.responseCode) {
-                                                                 BillingResponse.OK -> {
-                                                                     val match =
-                                                                             requireNotNull(
-                                                                                     purchases
-                                                                             ).first { it.sku == inventory.sku }
-                                                                     emitter.onSuccess(
-                                                                             PurchaseResponse(match)
-                                                                     )
-                                                                 }
-                                                                 else               -> emitter.onError(
-                                                                         PurchaseException(result.responseCode)
-                                                                 )
-                                                             }
-                                                         }, emitter::onError)
+                emitter.setDisposable(purchaseSubject.takeUntil { (_, purchases) ->
+                    purchases?.any { it.sku == inventory.sku } == true
+                }.firstOrError().subscribe({ (result, purchases) ->
+                                               when (result.responseCode) {
+                                                   BillingResponse.OK -> {
+                                                       val match = requireNotNull(
+                                                               purchases
+                                                       ).first { it.sku == inventory.sku }
+                                                       emitter.onSuccess(
+                                                               PurchaseResponse(match)
+                                                       )
+                                                   }
+                                                   else               -> emitter.onError(
+                                                           PurchaseException(result.responseCode)
+                                                   )
+                                               }
+                                           }, emitter::onError)
                 )
             }
         }.subscribeOn(scheduler)

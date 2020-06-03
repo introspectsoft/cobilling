@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package ml.introspectsoft.rxbilling.SkuDetails
-
-import com.android.billingclient.api.SkuDetails
-import ml.introspectsoft.rxbilling.Inventory
+package ml.introspectsoft.rxbilling.extensions
 
 /**
- * Extension function for [SkuDetails] to convert to [Inventory].
+ * Convert ByteArray to hex String
+ *
+ * @return hex string representation of ByteArray
  */
-fun SkuDetails.toInventory() = Inventory(this)
+fun ByteArray.toHex(): String {
+    return joinToString("") { "%02x".format(it) }
+}
