@@ -19,6 +19,12 @@ package ml.introspectsoft.rxbilling
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.Purchase
 
+/**
+ * Updated purchase data from BillingClient.onPurchasesUpdated
+ *
+ * @param[result] BillingResult of response
+ * @param[purchases] list of changed purchases to process
+ */
 data class PurchasesUpdate(
         val result: BillingResult, val purchases: List<Purchase>?
 ) : DataUtils
