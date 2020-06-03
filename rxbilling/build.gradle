@@ -72,15 +72,15 @@ dokka {
         androidVariants = ["debug", "release"]
     }
     outputFormat = "markdown"
-    outputDirectory = "../builds/output/markdown"
+    outputDirectory = "../builds/outputs/markdown"
 }
 
-task dokkaMarkdown(type: org.jetbrains.dokka.gradle.DokkaTask) {
+task dokkaHtml(type: org.jetbrains.dokka.gradle.DokkaTask) {
     configuration {
         androidVariants = ["debug", "release"]
     }
     outputFormat = "html"
-    outputDirectory = "../builds/output/javadoc"
+    outputDirectory = "../builds/outputs/javadoc"
 }
 
 publishing {
@@ -153,7 +153,7 @@ publishing {
     repositories {
         maven {
             // change to point to your repo, e.g. http://my.org/repo
-            url = "${project.buildDir}/repo"
+            url = "${project.buildDir}/outputs/maven-repo"
         }
     }
 }
