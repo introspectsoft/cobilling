@@ -27,4 +27,6 @@ import com.android.billingclient.api.Purchase
  */
 data class PurchasesUpdate(
         val result: BillingResult, val purchases: List<Purchase>?
-) : DataUtils
+) : DataUtils {
+    constructor(purchasesResult: Purchase.PurchasesResult) : this(purchasesResult.billingResult, purchasesResult.purchasesList)
+}

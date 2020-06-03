@@ -16,8 +16,10 @@
 
 package ml.introspectsoft.rxbilling
 
+import com.android.billingclient.api.Purchase
+
 /**
- * Data class for handling purchase response events.
+ * Data class for handling purchase history data
  *
  * @param[packageName] package that originated the purchase
  * @param[productId] product sku
@@ -25,11 +27,34 @@ package ml.introspectsoft.rxbilling
  * @param[purchaseState] purchase state of the order. Should verify it is [PurchaseState.PURCHASED][https://developer.android.com/reference/com/android/billingclient/api/Purchase.PurchaseState#purchased]
  *                       and not [PurchaseState.PENDING][https://developer.android.com/reference/com/android/billingclient/api/Purchase.PurchaseState#pending]
  * @param[purchaseTime] purchase time in milliseconds
+ * @param[purchaseOrderId] order id of the purchase
+ * @param[isAcknowledged] is the purchase acknowledged
+ * @param[isAutoRenewing] is the purchase auto renewing
+ * @constructor Create a new PurchaseResponse
  */
 data class PurchaseResponse(
         val packageName: String,
         val productId: String,
         val purchaseToken: String,
-        @BillingResponse val purchaseState: Int,
-        val purchaseTime: Long
-) : DataUtils
+        @BillingResponse val purchaseState: Int = 0,
+        val purchaseTime: Long = 0,
+        val purchaseOrderId: String,
+        val isAcknowledged: Boolean = false,
+        val isAutoRenewing: Boolean = false
+) : DataUtils {
+    /**
+     * Create a new PurchaseResponse
+     *
+     * @param[purchase] Purchase object to convert to data
+     */
+    constructor(purchase: Purchase) : this(
+            purchase.packageName,
+            purchase.sku,
+            purchase.purchaseToken,
+            purchase.purchaseState,
+            purchase.purchaseTime,
+            purchase.orderId,
+            purchase.isAcknowledged,
+            purchase.isAutoRenewing
+    )
+}

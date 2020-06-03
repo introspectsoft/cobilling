@@ -142,23 +142,16 @@ class RxBilling(
                                               .subscribe({ (result, purchases) ->
                                                              when (result.responseCode) {
                                                                  BillingResponse.OK -> {
-                                                                     val match = requireNotNull(
-                                                                             purchases
-                                                                     ).first { it.sku == inventory.sku }
+                                                                     val match =
+                                                                             requireNotNull(
+                                                                                     purchases
+                                                                             ).first { it.sku == inventory.sku }
                                                                      emitter.onSuccess(
-                                                                             PurchaseResponse(
-                                                                                     match.packageName,
-                                                                                     match.sku,
-                                                                                     match.purchaseToken,
-                                                                                     match.purchaseState,
-                                                                                     match.purchaseTime
-                                                                             )
+                                                                             PurchaseResponse(match)
                                                                      )
                                                                  }
                                                                  else               -> emitter.onError(
-                                                                         PurchaseException(
-                                                                                 result.responseCode
-                                                                         )
+                                                                         PurchaseException(result.responseCode)
                                                                  )
                                                              }
                                                          }, emitter::onError)
@@ -175,7 +168,7 @@ class RxBilling(
      * @return Single containing the BillingResponse
      */
     @CheckReturnValue
-    fun acknowledgePurchase(purchasedInApp: Purchased): Single<Int> {
+    fun acknowledgePurchase(purchasedInApp: PurchaseResponse): Single<Int> {
         logger.d("Trying to acknowledge purchase $purchasedInApp")
 
         return connect().flatMap { client ->
@@ -202,7 +195,7 @@ class RxBilling(
      * @return Single containing the BillingResponse
      */
     @CheckReturnValue
-    fun consumePurchase(purchasedInApp: Purchased): Single<Int> {
+    fun consumePurchase(purchasedInApp: PurchaseResponse): Single<Int> {
         logger.d("Trying to consume purchase $purchasedInApp")
 
         return connect().flatMap { client ->
@@ -222,41 +215,37 @@ class RxBilling(
      * All of the InApp purchases that have taken place already on by one and then completes.
      * In case there were none the Observable will just complete.
      */
-    @get:CheckReturnValue val purchasedInApps: Observable<Purchased>
+    @get:CheckReturnValue val purchasedInApps: Observable<PurchaseResponse>
         get() = getPurchased(BillingClient.SkuType.INAPP) {
-            Purchased(
-                    it.packageName, it.sku, it.purchaseToken, it.purchaseState, it.purchaseTime
-            )
+            PurchaseResponse(it)
         }
 
     /**
-     * @return all of the subscription purchases that have taken place already on by one and then completes.
+     * All of the subscription purchases that have taken place already on by one and then completes.
      * In case there were none the Observable will just complete.
      */
-    @get:CheckReturnValue val purchasedSubscriptions: Observable<Purchased>
+    @get:CheckReturnValue val purchasedSubscriptions: Observable<PurchaseResponse>
         get() = getPurchased(BillingClient.SkuType.SUBS) {
-            Purchased(
-                    it.packageName, it.sku, it.purchaseToken, it.purchaseState, it.purchaseTime
-            )
+            PurchaseResponse(it)
         }
 
     @CheckReturnValue
-    fun <T> getPurchased(skuType: String, converter: (Purchase) -> T): @NonNull Observable<T> =
-            connect().flatMapObservable { client ->
-                Observable.create<T> { emitter ->
-                    // TODO: Check if this works instead of purchaseHistoryAsync
-                    val result = client.queryPurchases(skuType)
-                    if (result.responseCode == BillingResponse.OK) {
-                        result.purchasesList?.forEach {
-                            emitter.onNext(converter.invoke(it))
-                        }
-
-                        emitter.onComplete()
-                    } else {
-                        emitter.onError(InAppBillingException(result.responseCode))
-                    }
+    private fun <T> getPurchased(
+            skuType: String, converter: (Purchase) -> T
+    ): @NonNull Observable<T> = connect().flatMapObservable { client ->
+        Observable.create<T> { emitter ->
+            val result = client.queryPurchases(skuType)
+            if (result.responseCode == BillingResponse.OK) {
+                result.purchasesList?.forEach {
+                    emitter.onNext(converter.invoke(it))
                 }
-            }.subscribeOn(scheduler)
+
+                emitter.onComplete()
+            } else {
+                emitter.onError(InAppBillingException(result.responseCode))
+            }
+        }
+    }.subscribeOn(scheduler)
 
     @CheckReturnValue
     private fun connect() = Single.create<BillingClient> { emitter ->
