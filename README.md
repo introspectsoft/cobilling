@@ -14,7 +14,7 @@ Core functionality is provided in the [CoBilling](https://introspectsoft.github.
 ## Gradle
 
 ```groovy
-implementation 'ml.introspectsoft.cobilling:cobilling:0.x.x-experimental'
+implementation 'ml.introspectsoft.cobilling:cobilling:0.3.0-experimental'
 ```
 
 ## Kotlin
@@ -30,7 +30,7 @@ class YourActivity : Activity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        billing?.destroy()
+        billing?.dispose()
     }
 }
 ```

@@ -93,7 +93,7 @@ publishing {
             pom {
                 name = 'cobilling'
                 description = 'Kotlin coroutines wrappers for Google Play Billing API '
-                url = 'https://introspectsoft.github.io/CoBilling/'
+                url = 'https://introspectsoft.github.io/cobilling/'
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -108,8 +108,8 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:https://github.com/introspectsoft/CoBilling.git'
-                    url = 'https://github.com/introspectsoft/CoBilling'
+                    connection = 'scm:https://github.com/introspectsoft/cobilling.git'
+                    url = 'https://github.com/introspectsoft/cobilling'
                 }
             }
         }
@@ -132,7 +132,7 @@ bintray {
         name = 'ml.introspectsoft.cobilling:cobilling'
         licenses = ['Apache-2.0']
         userOrg = 'introspectsoft'
-        vcsUrl = 'https://github.com/introspectsoft/CoBilling.git'
+        vcsUrl = 'https://github.com/introspectsoft/cobilling.git'
         version {
             name = buildVersionName()
             desc = buildVersionName()
