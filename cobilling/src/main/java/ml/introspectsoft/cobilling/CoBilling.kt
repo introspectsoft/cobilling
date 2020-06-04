@@ -25,7 +25,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.withContext
 import ml.introspectsoft.cobilling.extensions.toSha256
-import timber.log.Timber
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -210,10 +209,7 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
     private suspend fun query(
             skuType: String, skuList: List<String>
     ): SkuDetailsResult {
-        Timber.d("query for %s, %s", skuType, skuList.joinToString("|"))
-
         if (skuList.isEmpty()) {
-            Timber.d("skuList is empty")
             return SkuDetailsResult(
                     BillingResult.newBuilder()
                             .setResponseCode(BillingResponseCode.DEVELOPER_ERROR)
@@ -223,7 +219,6 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
 
         return withContext(dispatcher) {
             val result = connect()
-            Timber.d("query connect: %d", result.responseCode)
             if (result.responseCode != BillingResponseCode.OK) {
                 return@withContext SkuDetailsResult(result, null)
             }
@@ -231,11 +226,6 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
             val params = SkuDetailsParams.newBuilder().setSkusList(skuList).setType(skuType).build()
             return@withContext suspendCoroutine { it: Continuation<SkuDetailsResult> ->
                 billingClient?.querySkuDetailsAsync(params) { billingResult, resultList ->
-                    Timber.d(
-                            "querySkuDetails got %d and %d items",
-                            billingResult.responseCode,
-                            resultList.size
-                    )
                     it.resume(SkuDetailsResult(billingResult, resultList))
                 }
             }
