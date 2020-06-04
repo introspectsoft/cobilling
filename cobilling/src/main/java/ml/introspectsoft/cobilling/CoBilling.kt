@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018 Vanniktech - Niklas Baudy
- * Modifications Copyright (c) 2020. Jason Burgess
+ * Copyright (c) 2020. Jason Burgess
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-include ':cobilling'
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.cobilling
+
+/**
+ * Billing interface for Google's In-app Billing
+ *
+ * Currently supports 2.2.1
+ */
+class CoBilling

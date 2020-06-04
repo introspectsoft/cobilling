@@ -14,7 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-include ':cobilling'
 
-include ':rxbilling'
-rootProject.name = "RxBilling"
+package ml.introspectsoft.cobilling
+
+import java.math.BigDecimal
+
+/**
+ * Internal utility functions
+ */
+internal class Utils {
+    companion object {
+        private const val MICRO_SCALE = 6
+        private const val ROUNDING_DIGITS = 2
+
+        /**
+         * Convert from micro units like [Inventory.priceAmountMicros] to BigDecimal
+         */
+        fun asBigDecimal(micros: Long): BigDecimal {
+            return BigDecimal.valueOf(micros, MICRO_SCALE)
+                    .setScale(ROUNDING_DIGITS, BigDecimal.ROUND_HALF_UP)
+        }
+    }
+}
