@@ -7,7 +7,7 @@ Kotlin coroutines wrappers for the Google Play Billing API.
 
 # Usage
 
-Library documentation is available on [https://introspectsoft.github.io/CoBilling/].
+Library documentation is available on [https://introspectsoft.github.io/cobilling/].
 
 Core functionality is provided in the [CoBilling](https://introspectsoft.github.io/RxBilling2/ml.introspectsoft.cobilling/-co-billing/) class.
 
