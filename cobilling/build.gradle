@@ -16,12 +16,12 @@
 
 apply from: "${rootProject.projectDir}/buildsystem/config.gradle"
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'org.jetbrains.dokka'
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "org.jetbrains.dokka"
+apply plugin: "maven-publish"
+apply plugin: "com.jfrog.bintray"
 
 project.buildDir = "../builds/"
 
@@ -63,7 +63,6 @@ dependencies {
 
 }
 
-
 dokka {
     configuration {
         androidVariants = ["debug", "release"]
@@ -80,6 +79,22 @@ task dokkaHtml(type: org.jetbrains.dokka.gradle.DokkaTask) {
     outputDirectory = "../builds/outputs/javadoc"
 }
 
+task javadocJar(type: Jar) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Kotlin docs with Dokka"
+    archiveClassifier = 'javadoc'
+    destinationDirectory = project.buildDir
+    from(tasks.dokkaHtml)
+}
+
+task sourcesJar(type: Jar) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles sources jar"
+    destinationDirectory = project.buildDir
+    archiveClassifier = 'sources'
+    from(android.sourceSets.main.java.srcDirs)
+}
+
 publishing {
     publications {
         release(MavenPublication) {
@@ -87,6 +102,8 @@ publishing {
             artifactId = 'cobilling'
             version = buildVersionName()
 
+            artifact sourcesJar
+            artifact javadocJar
             afterEvaluate {
                 from components.release
             }
@@ -135,7 +152,8 @@ bintray {
         vcsUrl = 'https://github.com/introspectsoft/cobilling.git'
         version {
             name = buildVersionName()
-            desc = buildVersionName()
+            vcsTag = buildVersionName()
+            desc = "CoBilling library " + buildVersionName()
             released = new Date()
         }
     }
