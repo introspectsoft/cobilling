@@ -30,7 +30,7 @@ class YourActivity : Activity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        billing?.dispose()
+        billing?.close()
     }
 }
 ```
