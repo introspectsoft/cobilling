@@ -17,4 +17,4 @@
 include ':cobilling'
 
 include ':rxbilling'
-rootProject.name = "RxBilling"
+rootProject.name = "cobilling"
