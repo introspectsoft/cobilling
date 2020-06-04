@@ -31,9 +31,10 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 /**
- * Billing interface for Google's In-app Billing
+ * Kotlin coroutine wrappers for the Google Play Billing library
  *
- * Currently supports 2.2.1
+ * * Google Play Billing v2.2.1
+ * * coroutines v2.3.0-alpha03
  *
  * @param[activity] the activity we're running on
  * @param[useDispatcher] an optional context to run on (Default: Dispatchers.IO)
@@ -56,7 +57,7 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
      *
      * Should be triggered when an activity loads to handle new purchases.
      *
-     * @param[skuType] sku type to check for (INAPP or SUBS)
+     * @param[skuType] SKU type to check for (INAPP or SUBS)
      */
     suspend fun checkPurchases(skuType: String) {
         val purchases = getPurchased(skuType)
@@ -67,12 +68,16 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
 
     /**
      * Get all of the InApp purchases that have taken place already
+     *
+     * @return PurchasesResult(BillingResult, List<Purchases>?)
      */
     suspend fun getPurchasedInApps(): Purchase.PurchasesResult =
             getPurchased(BillingClient.SkuType.INAPP)
 
     /**
      * Get all of the subscription purchases that have taken place already
+     *
+     * @return PurchasesResult(BillingResult, List<Purchases>?)
      */
     suspend fun getPurchasedSubscriptions(): Purchase.PurchasesResult =
             getPurchased(BillingClient.SkuType.SUBS)
@@ -98,11 +103,11 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
     )
 
     /**
-     * Acknowledge the given InApp purchase which has been bought.
+     * Acknowledge the purchase
      * Purchases not acknowledged or consumed after 3 days are refunded.
      *
-     * @param[purchased] the purchased in app purchase to consume
-     * @return the BillingResult
+     * @param[purchased] the purchase to acknowledge
+     * @return BillingResult
      */
     suspend fun acknowledgePurchase(purchased: Purchase): BillingResult = withContext(dispatcher) {
         val result = connect()
@@ -120,11 +125,11 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
     }
 
     /**
-     * Consumes the given InApp purchase which has been bought.
+     * Consumes the in app purchase.
      * Purchases not acknowledged or consumed after 3 days are refunded.
      *
-     * @param[purchased] the purchased in app purchase to consume
-     * @return the ConsumeResult
+     * @param[purchased] the purchase to consume
+     * @return ConsumeResult(BillingResult, purchaseToken : String)
      */
     suspend fun consumePurchase(purchased: Purchase): ConsumeResult {
         return withContext(dispatcher) {
@@ -178,6 +183,12 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
                 .build()
     }
 
+    /**
+     * Base get purchased function to back up the public ones.
+     *
+     * @param[skuType] INAPP or SUBS to retrieve.
+     * @return PurchasesResult(BillingResult, List<Purchases>?)
+     */
     private suspend fun getPurchased(
             skuType: String
     ): Purchase.PurchasesResult {
@@ -189,6 +200,13 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
         return billingClient?.queryPurchases(skuType) ?: Purchase.PurchasesResult(result, null)
     }
 
+    /**
+     * Base query products function to back up the public ones.
+     *
+     * @param[skuType] INAPP or SUBS to retrieve.
+     * @param[skuList] list of SKUs to retrieve.
+     * @return SkuDetailsResult(BillingResult, List<SkuDetails>?)
+     */
     private suspend fun query(
             skuType: String, skuList: List<String>
     ): SkuDetailsResult {
@@ -224,6 +242,11 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
         }
     }
 
+    /**
+     * Connect to the Play Store
+     *
+     * @return BillingResult
+     */
     private suspend fun connect(): BillingResult {
         if (billingClient == null || billingClient?.isReady == false) {
             withContext(dispatcher) {
