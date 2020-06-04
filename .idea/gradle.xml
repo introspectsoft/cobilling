@@ -12,7 +12,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/cobilling" />
-            <option value="$PROJECT_DIR$/rxbilling" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

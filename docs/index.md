@@ -1,13 +1,13 @@
 ---
-title: rxbilling
+title: cobilling
 ---
 
-[rxbilling](./index.html)
+[cobilling](./index.html)
 
 ### Packages
 
-| [ml.introspectsoft.rxbilling](ml.introspectsoft.rxbilling/index.html) |  |
-| [ml.introspectsoft.rxbilling.extensions](ml.introspectsoft.rxbilling.extensions/index.html) |  |
+| [ml.introspectsoft.cobilling](ml.introspectsoft.cobilling/index.html) |  |
+| [ml.introspectsoft.cobilling.extensions](ml.introspectsoft.cobilling.extensions/index.html) |  |
 
 ### Index
 

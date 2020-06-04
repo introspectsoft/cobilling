@@ -23,6 +23,8 @@ apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
+project.buildDir = "../builds/"
+
 android {
     compileSdkVersion configuration.compileSdkVersion
     buildToolsVersion configuration.buildToolsVersion
@@ -59,4 +61,82 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+}
+
+
+dokka {
+    configuration {
+        androidVariants = ["debug", "release"]
+    }
+    outputFormat = "jekyll"
+    outputDirectory = "../builds/outputs/markdown"
+}
+
+task dokkaHtml(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    configuration {
+        androidVariants = ["debug", "release"]
+    }
+    outputFormat = "html"
+    outputDirectory = "../builds/outputs/javadoc"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'ml.introspectsoft.cobilling'
+            artifactId = 'cobilling'
+            version = buildVersionName()
+
+            afterEvaluate {
+                from components.release
+            }
+            pom {
+                name = 'cobilling'
+                description = 'Kotlin coroutines wrappers for Google Play Billing API '
+                url = 'https://introspectsoft.github.io/CoBilling/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'introspectdev'
+                        name = 'Jason Burgess'
+                        email = 'introspect.dev@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:https://github.com/introspectsoft/CoBilling.git'
+                    url = 'https://github.com/introspectsoft/CoBilling'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url = "${project.buildDir}/outputs/maven-repo"
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.getProperty('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.getProperty('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['release']
+
+    pkg {
+        repo = 'introspectsoft-maven'
+        name = 'ml.introspectsoft.cobilling:cobilling'
+        licenses = ['Apache-2.0']
+        userOrg = 'introspectsoft'
+        vcsUrl = 'https://github.com/introspectsoft/CoBilling.git'
+        version {
+            name = buildVersionName()
+            desc = buildVersionName()
+            released = new Date()
+        }
+    }
 }
