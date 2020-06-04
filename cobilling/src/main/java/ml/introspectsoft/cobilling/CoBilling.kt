@@ -16,9 +16,261 @@
 
 package ml.introspectsoft.cobilling
 
+import android.app.Activity
+import com.android.billingclient.api.*
+import com.android.billingclient.api.BillingClient.BillingResponseCode
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.withContext
+import ml.introspectsoft.cobilling.extensions.toSha256
+import timber.log.Timber
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
+
 /**
  * Billing interface for Google's In-app Billing
  *
  * Currently supports 2.2.1
+ *
+ * @param[activity] the activity we're running on
+ * @param[useDispatcher] an optional context to run on (Default: Dispatchers.IO)
  */
-class CoBilling
+@ExperimentalCoroutinesApi
+class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatcher? = null) {
+    companion object {
+        // Number of objects to buffer in purchasesUpdated and other channels
+        const val BUFFER_SIZE = 100
+    }
+
+    private var billingClient: BillingClient? = null
+    private val dispatcher: CoroutineDispatcher = useDispatcher ?: Dispatchers.IO
+
+    val purchasesUpdated: BroadcastChannel<Purchase.PurchasesResult> = BroadcastChannel(BUFFER_SIZE)
+
+    /**
+     * Get purchases information from play store and triggers callback like it's coming from
+     * onPurchasesUpdated().
+     *
+     * Should be triggered when an activity loads to handle new purchases.
+     *
+     * @param[skuType] sku type to check for (INAPP or SUBS)
+     */
+    suspend fun checkPurchases(skuType: String) {
+        val purchases = getPurchased(skuType)
+        if (!purchasesUpdated.isClosedForSend) {
+            purchasesUpdated.offer(purchases)
+        }
+    }
+
+    /**
+     * Get all of the InApp purchases that have taken place already
+     */
+    suspend fun getPurchasedInApps(): Purchase.PurchasesResult =
+            getPurchased(BillingClient.SkuType.INAPP)
+
+    /**
+     * Get all of the subscription purchases that have taken place already
+     */
+    suspend fun getPurchasedSubscriptions(): Purchase.PurchasesResult =
+            getPurchased(BillingClient.SkuType.SUBS)
+
+    /**
+     * Queries for a list of in app products by SKU
+     *
+     * @param skuIds the SKU IDs to query. It should contain at least one ID.
+     * @return List of products
+     */
+    suspend fun queryInAppPurchases(vararg skuIds: String) = query(
+            BillingClient.SkuType.INAPP, skuIds.toList()
+    )
+
+    /**
+     * Queries for a list of subscription products by SKU
+     *
+     * @param skuIds the SKU IDs to query. It should contain at least one ID.
+     * @return List of products
+     */
+    suspend fun querySubscriptions(vararg skuIds: String) = query(
+            BillingClient.SkuType.SUBS, skuIds.toList()
+    )
+
+    /**
+     * Acknowledge the given InApp purchase which has been bought.
+     * Purchases not acknowledged or consumed after 3 days are refunded.
+     *
+     * @param[purchased] the purchased in app purchase to consume
+     * @return the BillingResult
+     */
+    suspend fun acknowledgePurchase(purchased: Purchase): BillingResult = withContext(dispatcher) {
+        val result = connect()
+        if (result.responseCode != BillingResponseCode.OK) {
+            return@withContext result
+        }
+
+        val params =
+                AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchased.purchaseToken)
+                        .build()
+        suspendCoroutine { it: Continuation<BillingResult> ->
+            billingClient?.acknowledgePurchase(params) { ackResult -> it.resume(ackResult) }
+        }
+    }
+
+    /**
+     * Consumes the given InApp purchase which has been bought.
+     * Purchases not acknowledged or consumed after 3 days are refunded.
+     *
+     * @param[purchased] the purchased in app purchase to consume
+     * @return the ConsumeResult
+     */
+    suspend fun consumePurchase(purchased: Purchase): ConsumeResult {
+        return withContext(dispatcher) {
+            val result = connect()
+            if (result.responseCode != BillingResponseCode.OK) {
+                return@withContext ConsumeResult(result, "")
+            }
+
+            val params =
+                    ConsumeParams.newBuilder().setPurchaseToken(purchased.purchaseToken).build()
+            suspendCoroutine { it: Continuation<ConsumeResult> ->
+                billingClient?.consumeAsync(params) { billingResult: BillingResult, token: String ->
+                    it.resume(ConsumeResult(billingResult, token))
+                }
+
+            }
+        }
+    }
+
+    /**
+     * Purchases the given item. You can get an instance of SkuDetails through the [queryInAppPurchases] or
+     * [querySubscriptions] method.
+     *
+     * The values of [accountId] and [profileId] will be hashed to remove personally identifying
+     * information. Values are hashed using [String.toSha256] which is included in this library.
+     *
+     * @param[product] the product to purchase
+     * @param[accountId] account id to be sent with the purchase
+     * @param[profileId] profile id to be sent with the purchase if your app supports multiple profiles
+     */
+    suspend fun purchase(
+            product: SkuDetails, accountId: String? = null, profileId: String? = null
+    ): BillingResult {
+        val result = connect()
+        if (result.responseCode != BillingResponseCode.OK) {
+            return result
+        }
+
+        val builder = BillingFlowParams.newBuilder().setSkuDetails(product)
+        // Add hashed identifiers to request
+        if (!accountId.isNullOrEmpty()) {
+            builder.setObfuscatedAccountId(accountId.toSha256())
+        }
+        if (!profileId.isNullOrEmpty()) {
+            builder.setObfuscatedProfileId(profileId.toSha256())
+        }
+        val params = builder.build()
+
+        return billingClient?.launchBillingFlow(activity, params) ?: BillingResult.newBuilder()
+                .setResponseCode(BillingResponseCode.DEVELOPER_ERROR)
+                .build()
+    }
+
+    private suspend fun getPurchased(
+            skuType: String
+    ): Purchase.PurchasesResult {
+        val result = connect()
+        if (result.responseCode != BillingResponseCode.OK) {
+            return Purchase.PurchasesResult(result, null)
+        }
+
+        return billingClient?.queryPurchases(skuType) ?: Purchase.PurchasesResult(result, null)
+    }
+
+    private suspend fun query(
+            skuType: String, skuList: List<String>
+    ): SkuDetailsResult {
+        Timber.d("query for %s, %s", skuType, skuList.joinToString("|"))
+
+        if (skuList.isEmpty()) {
+            Timber.d("skuList is empty")
+            return SkuDetailsResult(
+                    BillingResult.newBuilder()
+                            .setResponseCode(BillingResponseCode.DEVELOPER_ERROR)
+                            .build(), null
+            )
+        }
+
+        return withContext(dispatcher) {
+            val result = connect()
+            Timber.d("query connect: %d", result.responseCode)
+            if (result.responseCode != BillingResponseCode.OK) {
+                return@withContext SkuDetailsResult(result, null)
+            }
+
+            val params = SkuDetailsParams.newBuilder().setSkusList(skuList).setType(skuType).build()
+            return@withContext suspendCoroutine { it: Continuation<SkuDetailsResult> ->
+                billingClient?.querySkuDetailsAsync(params) { billingResult, resultList ->
+                    Timber.d(
+                            "querySkuDetails got %d and %d items",
+                            billingResult.responseCode,
+                            resultList.size
+                    )
+                    it.resume(SkuDetailsResult(billingResult, resultList))
+                }
+            }
+        }
+    }
+
+    private suspend fun connect(): BillingResult {
+        if (billingClient == null || billingClient?.isReady == false) {
+            withContext(dispatcher) {
+                val client =
+                        BillingClient.newBuilder(activity.application)
+                                .enablePendingPurchases()
+                                .setListener { result, purchases ->
+                                    if (!purchasesUpdated.isClosedForSend) {
+                                        purchasesUpdated.offer(
+                                                Purchase.PurchasesResult(result, purchases)
+                                        )
+                                    }
+                                }
+                                .build()
+                billingClient = client
+                return@withContext suspendCoroutine { it: Continuation<BillingResult> ->
+                    client.startConnection(object : BillingClientStateListener {
+                        override fun onBillingSetupFinished(result: BillingResult) {
+                            if (result.responseCode != BillingResponseCode.OK) {
+                                // Connection failed
+                                billingClient = null
+                            }
+
+                            it.resume(result)
+                        }
+
+                        override fun onBillingServiceDisconnected() {
+                            // We'll build up a new connection upon next request.
+                            billingClient = null
+                        }
+                    })
+                }
+            }
+        }
+
+        // Nothing to do, return ok
+        return BillingResult.newBuilder().setResponseCode(BillingResponseCode.OK).build()
+    }
+
+    /**
+     * Closes the BillingClient and any open BroadcastChannels. Call this when you're done or
+     * your Activity is about to be destroyed.
+     */
+    fun close() {
+        purchasesUpdated.close()
+
+        billingClient?.endConnection()
+        billingClient = null
+    }
+}

@@ -17,9 +17,20 @@
 package ml.introspectsoft.cobilling.extensions
 
 import com.android.billingclient.api.SkuDetails
-import ml.introspectsoft.cobilling.Inventory
+import ml.introspectsoft.cobilling.Utils
+import java.math.BigDecimal
+import java.util.*
 
 /**
- * Extension function for [SkuDetails] to convert to [Inventory].
+ * @return [Currency] for price. (localized)
  */
-fun SkuDetails.toInventory() = Inventory(this)
+val SkuDetails.priceCurrency: Currency
+    get() = Currency.getInstance(priceCurrencyCode)
+
+/**
+ * @return price as BigDecimal. (localized)
+ */
+val SkuDetails.priceAsBigDecimal: BigDecimal
+    get() = Utils.asBigDecimal(
+            priceAmountMicros
+    )

@@ -28,7 +28,7 @@ internal class Utils {
         private const val ROUNDING_DIGITS = 2
 
         /**
-         * Convert from micro units like [Inventory.priceAmountMicros] to BigDecimal
+         * Convert from micro units like priceAmountMicros to BigDecimal
          */
         fun asBigDecimal(micros: Long): BigDecimal {
             return BigDecimal.valueOf(micros, MICRO_SCALE)
