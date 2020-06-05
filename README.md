@@ -39,4 +39,6 @@ class YourActivity : Activity() {
 
 Copyright &copy; 2020 Jason Burgess 
 
-Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Sample code included in [examples] is released under the [Zero-Clause BSD](sampleapplication/LICENSE) license.
+
+All other code is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)

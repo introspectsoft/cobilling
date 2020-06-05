@@ -1,3 +1,8 @@
 <component name="CopyrightManager">
-  <settings default="APL2" />
+  <settings>
+    <module2copyright>
+      <element module="Example Code" copyright="0-BSD" />
+      <element module="All" copyright="APL2" />
+    </module2copyright>
+  </settings>
 </component>
