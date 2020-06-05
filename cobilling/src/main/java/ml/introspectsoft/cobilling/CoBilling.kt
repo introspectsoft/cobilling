@@ -48,7 +48,7 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
     private var billingClient: BillingClient? = null
     private val dispatcher: CoroutineDispatcher = useDispatcher ?: Dispatchers.IO
 
-    val purchasesUpdated: BroadcastChannel<Purchase.PurchasesResult> = BroadcastChannel(BUFFER_SIZE)
+    val purchasesUpdated = BroadcastChannel<Purchase.PurchasesResult>(BUFFER_SIZE)
 
     /**
      * Get purchases information from play store and triggers callback like it's coming from
