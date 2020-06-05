@@ -20,6 +20,7 @@ buildscript {
     ext.dokka_version = '0.10.1'
     ext.bintray_version = '1.8.5'
     ext.junit5_version = "5.6.2"
+    ext.mannodermaus_version = "1.2.0"
 
     repositories {
         google()

@@ -91,9 +91,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
     androidTestRuntimeOnly "org.junit.platform:junit-platform-runner:1.6.2"
-    androidTestImplementation "de.mannodermaus.junit5:android-test-core:1.0.0"
-    androidTestRuntimeOnly "de.mannodermaus.junit5:android-test-runner:1.0.0"
-    androidTestRuntimeOnly "de.mannodermaus.junit5:android-instrumentation-test-runner:0.2.2"
+
+    androidTestImplementation "de.mannodermaus.junit5:android-test-core:$mannodermaus_version"
+    androidTestRuntimeOnly "de.mannodermaus.junit5:android-test-runner:$mannodermaus_version"
 }
 
 dokka {
