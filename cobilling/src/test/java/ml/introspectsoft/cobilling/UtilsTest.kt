@@ -16,17 +16,19 @@
 
 package ml.introspectsoft.cobilling
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
+internal class UtilsTest {
+    private val inputs = listOf(0L, 990000L, 7842985L, 199999999L)
+    private val outputs =
+            listOf(BigDecimal("0.00"), BigDecimal("0.99"), BigDecimal("7.84"), BigDecimal("200.00"))
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun asBigDecimal() {
+        repeat(inputs.size) { i ->
+            assertEquals(outputs[i], Utils.asBigDecimal(inputs[i]))
+        }
     }
 }

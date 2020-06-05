@@ -22,6 +22,7 @@ apply plugin: "kotlin-android-extensions"
 apply plugin: "org.jetbrains.dokka"
 apply plugin: "maven-publish"
 apply plugin: "com.jfrog.bintray"
+apply plugin: 'de.mannodermaus.android-junit5'
 
 project.buildDir = "../builds/"
 
@@ -36,7 +37,13 @@ android {
         versionName buildVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
+
         consumerProguardFiles "consumer-rules.pro"
+    }
+
+    packagingOptions {
+        exclude "META-INF/LICENSE*"
     }
 
     buildTypes {
@@ -44,6 +51,24 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    testOptions {
+        junitPlatform {
+            filters {
+                //includePattern "^(tests_to_include_regex)$"
+                //excludePattern "^(tests_to_exclude_regex)$"
+
+                includeTags "slow"
+                excludeTags "integration"
+            }
+            debugFilters {
+                includeTags "integration"
+            }
+        }
+
+        reportDir "$rootDir/test-reports"
+        resultsDir "$rootDir/test-results"
     }
 }
 
@@ -55,12 +80,20 @@ dependencies {
     implementation 'com.android.billingclient:billing-ktx:2.2.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha03'
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
 
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.assertj:assertj-core:3.16.1'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5_version"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
+    androidTestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
+    androidTestRuntimeOnly "org.junit.platform:junit-platform-runner:1.6.2"
+    androidTestImplementation "de.mannodermaus.junit5:android-test-core:1.0.0"
+    androidTestRuntimeOnly "de.mannodermaus.junit5:android-test-runner:1.0.0"
+    androidTestRuntimeOnly "de.mannodermaus.junit5:android-instrumentation-test-runner:0.2.2"
 }
 
 dokka {
