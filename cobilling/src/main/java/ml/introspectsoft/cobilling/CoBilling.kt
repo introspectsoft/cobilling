@@ -19,11 +19,8 @@ package ml.introspectsoft.cobilling
 import android.app.Activity
 import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingClient.BillingResponseCode
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.withContext
 import ml.introspectsoft.cobilling.extensions.toSha256
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
@@ -39,12 +36,14 @@ import kotlin.coroutines.suspendCoroutine
  * @param[useDispatcher] an optional context to run on (Default: Dispatchers.IO)
  */
 @ExperimentalCoroutinesApi
-class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatcher? = null) {
+class CoBilling(private var activity: Activity?, useDispatcher: CoroutineDispatcher? = null) {
     companion object {
         // Number of objects to buffer in purchasesUpdated and other channels
         const val BUFFER_SIZE = 100
     }
 
+    private var queryScope: CoroutineScope? = null
+    private var connectScope: CoroutineScope? = null
     private var billingClient: BillingClient? = null
     private val dispatcher: CoroutineDispatcher = useDispatcher ?: Dispatchers.IO
 
@@ -218,6 +217,7 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
         }
 
         return withContext(dispatcher) {
+            queryScope = this
             val result = connect()
             if (result.responseCode != BillingResponseCode.OK) {
                 return@withContext SkuDetailsResult(result, null)
@@ -239,24 +239,28 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
      */
     private suspend fun connect(): BillingResult {
         if (billingClient == null || billingClient?.isReady == false) {
+            // See if we need to kill an old call
+            if (connectScope?.isActive == true) {
+                connectScope?.cancel()
+            }
+
             withContext(dispatcher) {
-                val client =
-                        BillingClient.newBuilder(activity.application)
-                                .enablePendingPurchases()
-                                .setListener { result, purchases ->
-                                    if (!purchasesUpdated.isClosedForSend) {
-                                        purchasesUpdated.offer(
-                                                Purchase.PurchasesResult(result, purchases)
-                                        )
-                                    }
+                connectScope = this
+                billingClient = activity?.applicationContext?.let {
+                    BillingClient.newBuilder(it).enablePendingPurchases().setListener { result, purchases ->
+                                if (!purchasesUpdated.isClosedForSend) {
+                                    purchasesUpdated.offer(
+                                            Purchase.PurchasesResult(result, purchases)
+                                    )
                                 }
-                                .build()
-                billingClient = client
+                            }.build()
+                }
                 return@withContext suspendCoroutine { it: Continuation<BillingResult> ->
-                    client.startConnection(object : BillingClientStateListener {
+                    billingClient?.startConnection(object : BillingClientStateListener {
                         override fun onBillingSetupFinished(result: BillingResult) {
                             if (result.responseCode != BillingResponseCode.OK) {
                                 // Connection failed
+                                billingClient?.endConnection()
                                 billingClient = null
                             }
 
@@ -281,7 +285,16 @@ class CoBilling(private val activity: Activity, useDispatcher: CoroutineDispatch
      * your Activity is about to be destroyed.
      */
     fun close() {
+        activity = null
         purchasesUpdated.close()
+
+        // See if we need to kill an old call
+        if (connectScope?.isActive == true) {
+            connectScope?.cancel()
+        }
+        if (queryScope?.isActive == true) {
+            queryScope?.cancel()
+        }
 
         billingClient?.endConnection()
         billingClient = null
