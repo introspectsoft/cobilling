@@ -1,5 +1,12 @@
 # CoBilling Release Notes
 
+## 0.3.2-alpha
+Released 2020-06-06
+
+* Added example code.
+* Removed a couple of memory leaks, particularly when no network connection was available.
+* Several minor optimizations.
+
 ## 0.3.1-alpha
 Released 2020-06-04
 

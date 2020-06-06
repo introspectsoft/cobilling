@@ -14,7 +14,7 @@ The [CommonUsage](/examples/src/main/java/ml/introspectsoft/examples/CommonUsage
 ## Gradle
 
 ```groovy
-implementation 'ml.introspectsoft.cobilling:cobilling:0.3.1-alpha'
+implementation 'ml.introspectsoft.cobilling:cobilling:0.3.2-alpha'
 ```
 
 ## Kotlin
