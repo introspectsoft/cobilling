@@ -68,15 +68,15 @@ class CommonUsages : AppCompatActivity() {
             return
         }
 
-        for (purchase in update.purchasesList.orEmpty()) {
+        update.purchasesList.orEmpty().forEach { purchase ->
             if (purchase.isAcknowledged) {
                 // This has already been dealt with and we probably don't need to do anything.
-                continue
+                return@forEach
             }
 
             if (purchase.purchaseState == Purchase.PurchaseState.PENDING) {
                 // Probably just informational pending purchase notification.
-                continue
+                return@forEach
             }
 
             if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
@@ -136,7 +136,7 @@ class CommonUsages : AppCompatActivity() {
         // this is the long way with all the extra checks
         if (result.billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
             if (!result.skuDetailsList.isNullOrEmpty()) {
-                for (skuDetails in result.skuDetailsList.orEmpty()) {
+                result.skuDetailsList.orEmpty().forEach { skuDetails ->
                     if (skuDetails.sku == sku) {
                         // We found our result
                         return@runBlocking skuDetails
@@ -160,7 +160,7 @@ class CommonUsages : AppCompatActivity() {
 
             // This is essential the same SkuDetails query from above, but with less code.
             val search = billing.queryInAppPurchases(sku)
-            search.skuDetailsList?.forEach {
+            search.skuDetailsList.orEmpty().forEach {
                 if (it.sku == sku) {
                     purchaseItem = it
                 }
